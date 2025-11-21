@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight, AlertCircle, ShieldCheck } from 'lucide-react';
+import { Lock, ArrowRight, AlertCircle, ShieldCheck, Eye, EyeOff, MessageCircle, Mail } from 'lucide-react';
 
 interface LoginProps {
   onLogin: () => void;
@@ -8,6 +8,7 @@ interface LoginProps {
 export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [inputKey, setInputKey] = useState('');
   const [error, setError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-dark-bg transition-colors duration-300 px-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-dark-bg transition-colors duration-300 px-4 py-10">
       <div className="w-full max-w-md animate-in fade-in zoom-in-95 duration-500">
         <div className="bg-white dark:bg-dark-card rounded-2xl shadow-2xl border border-gray-200 dark:border-dark-border overflow-hidden">
             {/* Header */}
@@ -44,20 +45,30 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
                         <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                             Chave de Acesso
                         </label>
-                        <input 
-                            type="password" 
-                            value={inputKey}
-                            onChange={(e) => {
-                                setInputKey(e.target.value);
-                                setError(false);
-                            }}
-                            className={`
-                                w-full px-4 py-3.5 rounded-xl border bg-gray-50 dark:bg-slate-900 dark:text-white focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all outline-none font-medium
-                                ${error ? 'border-red-500 focus:ring-red-500/20 focus:border-red-500' : 'border-gray-200 dark:border-gray-700'}
-                            `}
-                            placeholder="Digite a chave..."
-                            autoFocus
-                        />
+                        <div className="relative">
+                            <input 
+                                type={showPassword ? "text" : "password"}
+                                value={inputKey}
+                                onChange={(e) => {
+                                    setInputKey(e.target.value);
+                                    setError(false);
+                                }}
+                                className={`
+                                    w-full pl-4 pr-12 py-3.5 rounded-xl border bg-gray-50 dark:bg-slate-900 dark:text-white focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all outline-none font-medium
+                                    ${error ? 'border-red-500 focus:ring-red-500/20 focus:border-red-500' : 'border-gray-200 dark:border-gray-700'}
+                                `}
+                                placeholder="••••••••"
+                                autoFocus
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+                                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                            >
+                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                            </button>
+                        </div>
                         {error && (
                             <div className="flex items-center gap-2 text-red-500 text-sm mt-3 animate-pulse font-medium">
                                 <AlertCircle className="w-4 h-4" />
@@ -75,11 +86,37 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     </button>
                 </form>
 
-                <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 text-center">
-                    <div className="flex items-center justify-center gap-2 text-gray-400 text-xs uppercase tracking-wide font-semibold">
-                        <ShieldCheck className="w-4 h-4" />
-                        <span>Acesso Seguro</span>
+                {/* Support Section */}
+                <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
+                    <p className="text-center text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
+                        Caso não tenha recebido código entre em contato com o suporte:
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                        <a 
+                            href="https://wa.me/5511915103290?text=Ol%C3%A1%2C+comprei+o+curso+Finan%C3%A7as+Pessoais+mas+n%C3%A3o+encontrei+minha+chave+de+acesso.+Poderiam+me+ajudar%3F"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 py-3 px-2 rounded-xl border border-green-500/30 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors text-sm font-bold shadow-sm"
+                        >
+                            <MessageCircle className="w-4 h-4" />
+                            WhatsApp
+                        </a>
+                        <a 
+                            href="mailto:EquipeKirpo@gmail.com?subject=Suporte%20Acesso%20-%20Finan%C3%A7as%20Pessoais&body=Ol%C3%A1%2C%20equipe.%0A%0AComprei%20o%20curso%20e%20gostaria%20de%20solicitar%20ajuda%20com%20minha%20chave%20de%20acesso."
+                            className="flex items-center justify-center gap-2 py-3 px-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300 transition-colors text-sm font-bold shadow-sm"
+                        >
+                            <Mail className="w-4 h-4" />
+                            E-mail
+                        </a>
                     </div>
+                </div>
+            </div>
+            
+            {/* Footer */}
+            <div className="bg-gray-50 dark:bg-slate-900/50 py-4 border-t border-gray-100 dark:border-gray-800">
+                <div className="flex items-center justify-center gap-2 text-gray-400 text-xs uppercase tracking-wide font-semibold">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Ambiente Seguro</span>
                 </div>
             </div>
         </div>

@@ -21,10 +21,11 @@ export const LessonView: React.FC<LessonViewProps> = ({
   onPrev,
   onHome
 }) => {
-  // Find current lesson and its module
+  // Find current lesson and its module safely
   const activeData = useMemo(() => {
+    if (!modules) return null;
     for (const mod of modules) {
-      const lesson = mod.lessons.find(l => l.id === lessonId);
+      const lesson = mod.lessons?.find(l => l.id === lessonId);
       if (lesson) return { lesson, module: mod };
     }
     return null;
@@ -35,9 +36,17 @@ export const LessonView: React.FC<LessonViewProps> = ({
     window.scrollTo(0, 0);
   }, [lessonId]);
 
-  if (!activeData) return <div className="p-10 text-center dark:text-white">Aula não encontrada</div>;
+  if (!activeData) return (
+    <div className="min-h-[50vh] flex flex-col items-center justify-center p-10 text-center dark:text-white">
+      <h2 className="text-xl font-bold mb-2">Aula não encontrada</h2>
+      <button onClick={onHome} className="text-brand-500 hover:underline">Voltar ao Início</button>
+    </div>
+  );
 
   const { lesson, module } = activeData;
+
+  // Safety check for content
+  if (!lesson.content) return null;
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
@@ -49,7 +58,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
         </button>
         <div className="flex items-center gap-2">
           <span className="bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 px-3 py-1 rounded-full font-medium text-xs tracking-wide uppercase border border-brand-100 dark:border-brand-800">
-            {module.title.split(':')[0]}
+            {module.title ? module.title.split(':')[0] : 'Módulo'}
           </span>
         </div>
       </div>
@@ -77,7 +86,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
       <div className="prose prose-lg prose-slate dark:prose-invert max-w-none mb-16">
         {/* Intro */}
         <div className="text-lg leading-relaxed text-gray-600 dark:text-gray-300 mb-8 font-medium">
-          <div dangerouslySetInnerHTML={{ __html: lesson.content.intro.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 dark:text-white font-bold">$1</strong>') }} />
+          <div dangerouslySetInnerHTML={{ __html: (lesson.content.intro || '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 dark:text-white font-bold">$1</strong>') }} />
         </div>
 
         {/* Note Taking Warning */}
@@ -101,7 +110,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
             </p>
         </div>
 
-        {lesson.content.examples.length > 0 && (
+        {lesson.content.examples && lesson.content.examples.length > 0 && (
           <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6 my-8 rounded-r-lg">
             <h4 className="text-blue-800 dark:text-blue-300 font-bold mb-3 text-lg mt-0">Exemplos Reais</h4>
             <ul className="space-y-2 mb-0">

@@ -2,48 +2,81 @@ import { useState, useEffect, useMemo } from 'react';
 import { COURSE_MODULES } from '../data/courseContent';
 
 export const useCourseProgress = () => {
-  // Initialize state from LocalStorage
+  // Initialize state from LocalStorage with Try-Catch to prevent crashes (Blue/White screen)
   const [completedLessons, setCompletedLessons] = useState<string[]>(() => {
-    const saved = localStorage.getItem('fp_completed_lessons');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('fp_completed_lessons');
+      if (saved === 'undefined' || saved === 'null') return [];
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.warn('Erro ao carregar progresso, resetando...', e);
+      return [];
+    }
   });
 
   const [currentLessonId, setCurrentLessonId] = useState<string | null>(() => {
-    const saved = localStorage.getItem('fp_current_lesson');
-    return saved ? JSON.parse(saved) : null;
+    try {
+      const saved = localStorage.getItem('fp_current_lesson');
+      if (saved === 'undefined' || saved === 'null') return null;
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      console.warn('Erro ao carregar lição atual, resetando...', e);
+      return null;
+    }
   });
 
   // Theme State - Default true (Dark Mode)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem('fp_theme');
-    return saved ? JSON.parse(saved) : true; 
+    try {
+      const saved = localStorage.getItem('fp_theme');
+      if (saved === 'undefined') return true;
+      return saved ? JSON.parse(saved) : true; 
+    } catch (e) {
+      return true;
+    }
   });
 
   // Welcome Modal State
   const [showWelcomeModal, setShowWelcomeModal] = useState<boolean>(() => {
-    const hasSeen = localStorage.getItem('fp_has_seen_welcome');
-    return !hasSeen;
+    try {
+      const hasSeen = localStorage.getItem('fp_has_seen_welcome');
+      return !hasSeen;
+    } catch (e) {
+      return true;
+    }
   });
 
-  // Persist changes
+  // Persist changes with safety
   useEffect(() => {
-    localStorage.setItem('fp_completed_lessons', JSON.stringify(completedLessons));
+    try {
+      localStorage.setItem('fp_completed_lessons', JSON.stringify(completedLessons));
+    } catch (e) {
+      console.error('Erro ao salvar progresso', e);
+    }
   }, [completedLessons]);
 
   useEffect(() => {
-    if (currentLessonId) {
-      localStorage.setItem('fp_current_lesson', JSON.stringify(currentLessonId));
-    } else {
-      localStorage.removeItem('fp_current_lesson');
+    try {
+      if (currentLessonId) {
+        localStorage.setItem('fp_current_lesson', JSON.stringify(currentLessonId));
+      } else {
+        localStorage.removeItem('fp_current_lesson');
+      }
+    } catch (e) {
+      console.error('Erro ao salvar lição atual', e);
     }
   }, [currentLessonId]);
 
   useEffect(() => {
-    localStorage.setItem('fp_theme', JSON.stringify(isDarkMode));
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    try {
+      localStorage.setItem('fp_theme', JSON.stringify(isDarkMode));
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (e) {
+      console.error('Erro ao salvar tema', e);
     }
   }, [isDarkMode]);
 
@@ -62,10 +95,12 @@ export const useCourseProgress = () => {
   };
 
   const flattenLessons = useMemo(() => {
-    return COURSE_MODULES.flatMap(m => m.lessons);
+    if (!COURSE_MODULES) return [];
+    return COURSE_MODULES.flatMap(m => m.lessons || []);
   }, []);
 
   const progressPercentage = useMemo(() => {
+    if (flattenLessons.length === 0) return 0;
     return Math.round((completedLessons.length / flattenLessons.length) * 100);
   }, [completedLessons, flattenLessons]);
 
@@ -88,7 +123,7 @@ export const useCourseProgress = () => {
   };
 
   return {
-    modules: COURSE_MODULES,
+    modules: COURSE_MODULES || [],
     completedLessons,
     currentLessonId,
     setCurrentLesson: setCurrentLessonId,
