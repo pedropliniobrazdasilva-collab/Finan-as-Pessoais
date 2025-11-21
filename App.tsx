@@ -3,7 +3,6 @@ import { useCourseProgress } from './hooks/useCourseProgress';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { LessonView } from './components/LessonView';
-import { Login } from './components/Login';
 import { Menu, X, Moon, Sun, PartyPopper, Check } from 'lucide-react';
 
 // Theme Toggle Component
@@ -74,27 +73,6 @@ const WelcomeModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOp
 const App: React.FC = () => {
   const progress = useCourseProgress();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  // Auth State logic
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('fp_access_granted') === 'true';
-  });
-
-  const handleLogin = () => {
-    localStorage.setItem('fp_access_granted', 'true');
-    setIsAuthenticated(true);
-  };
-
-  // If user is NOT authenticated, show Login Screen
-  if (!isAuthenticated) {
-    return (
-      <>
-        <Login onLogin={handleLogin} />
-        {/* Show theme toggle on login screen too */}
-        <ThemeToggle isDark={progress.isDarkMode} toggle={progress.toggleTheme} />
-      </>
-    );
-  }
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
