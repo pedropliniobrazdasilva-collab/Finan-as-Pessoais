@@ -13,7 +13,7 @@ interface LessonViewProps {
   onHome: () => void;
 }
 
-// Helper para renderizar negrito e itálico sem usar regex complexo
+// Helper para renderizar negrito e itálico
 const parseInline = (text: string): React.ReactNode[] => {
   if (!text) return [];
   const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/);
@@ -36,32 +36,75 @@ const parseMarkdown = (text: string) => {
   return blocks.map((block, index) => {
     const cleanBlock = block.trim();
 
-    // Títulos
+    // Títulos H3
     if (cleanBlock.startsWith('###')) {
       return (
-        <h3 key={index} className="text-xl font-bold text-gray-900 dark:text-white mt-10 mb-4 flex items-center gap-2">
-          <span className="w-1.5 h-6 bg-brand-500 rounded-full"></span>
+        <h3 key={index} className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4 flex items-center gap-2 border-l-4 border-brand-500 pl-3">
           {parseInline(cleanBlock.replace(/^###\s*/, ''))}
         </h3>
       );
     }
     
+    // Títulos H2 (caso existam)
     if (cleanBlock.startsWith('##')) {
       return (
-        <h2 key={index} className="text-2xl font-bold text-gray-900 dark:text-white mt-12 mb-6 border-b border-gray-100 dark:border-gray-800 pb-2">
+        <h2 key={index} className="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-6 border-b border-gray-100 dark:border-gray-800 pb-2">
           {parseInline(cleanBlock.replace(/^##\s*/, ''))}
         </h2>
       );
     }
 
-    // Listas
+    // Tabelas (linhas começando com |)
+    if (cleanBlock.startsWith('|')) {
+      const rows = cleanBlock.split('\n').filter(r => r.trim());
+      const headerRow = rows[0];
+      const bodyRows = rows.slice(2); // Pula a linha separadora |---|---|
+
+      const parseCell = (row: string) => {
+        return row.split('|').filter(c => c.trim() !== '').map(c => c.trim());
+      };
+
+      const headers = parseCell(headerRow);
+
+      return (
+        <div key={index} className="overflow-x-auto my-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gray-50 dark:bg-slate-800/80 border-b border-gray-200 dark:border-gray-700">
+                {headers.map((h, i) => (
+                  <th key={i} className="px-6 py-4 text-sm font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
+                    {parseInline(h)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-slate-900/40">
+              {bodyRows.map((row, rIndex) => {
+                const cells = parseCell(row);
+                return (
+                  <tr key={rIndex} className="hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors">
+                    {cells.map((cell, cIndex) => (
+                      <td key={cIndex} className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {parseInline(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+
+    // Listas com Bullets
     if (cleanBlock.startsWith('- ')) {
       const items = cleanBlock.split('\n').filter(line => line.trim().startsWith('-'));
       return (
-        <ul key={index} className="space-y-3 mb-8">
+        <ul key={index} className="space-y-3 mb-6 ml-1">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 leading-relaxed">
-              <div className="mt-2 w-1.5 h-1.5 bg-brand-500 rounded-full shrink-0" />
+            <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-slate-800/30 p-3 rounded-lg border border-transparent hover:border-brand-200 dark:hover:border-brand-900/50 transition-colors">
+              <div className="mt-1.5 w-1.5 h-1.5 bg-brand-500 rounded-full shrink-0" />
               <span>{parseInline(item.replace(/^- /, '').trim())}</span>
             </li>
           ))}
@@ -73,12 +116,12 @@ const parseMarkdown = (text: string) => {
     if (/^\d+\./.test(cleanBlock)) {
       const items = cleanBlock.split('\n').filter(line => /^\d+\./.test(line.trim()));
       return (
-        <div key={index} className="grid gap-4 mb-8">
+        <div key={index} className="grid gap-3 mb-6">
           {items.map((item, i) => {
              const content = item.replace(/^\d+\.\s*/, '').trim();
              return (
-              <div key={i} className="flex gap-4 p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-700/50">
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 font-bold text-sm shadow-sm shrink-0 border border-gray-100 dark:border-gray-600">
+              <div key={i} className="flex gap-4 p-4 rounded-xl bg-white dark:bg-slate-800/40 border border-gray-100 dark:border-slate-700/50 shadow-sm">
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-50 dark:bg-slate-700 text-brand-600 dark:text-brand-400 font-bold text-sm shrink-0">
                   {i + 1}
                 </span>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed pt-0.5">
@@ -91,8 +134,9 @@ const parseMarkdown = (text: string) => {
       );
     }
 
+    // Parágrafos Padrão
     return (
-      <p key={index} className="mb-6 text-gray-600 dark:text-gray-300 leading-7 text-lg">
+      <p key={index} className="mb-6 text-gray-600 dark:text-gray-300 leading-8 text-lg text-justify">
         {parseInline(cleanBlock)}
       </p>
     );
@@ -144,7 +188,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
            </span>
          </div>
 
-         <div className="w-8"></div> {/* Spacer para centralizar visualmente */}
+         <div className="w-8"></div>
       </div>
 
       <div className="max-w-4xl mx-auto px-6 pt-10">
@@ -166,9 +210,9 @@ export const LessonView: React.FC<LessonViewProps> = ({
               {lesson.title.split('. ')[1] || lesson.title}
            </h1>
 
-           <div className="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white dark:from-slate-800/40 dark:to-slate-900/40 border border-gray-100 dark:border-gray-800/50">
-              <p className="text-xl text-gray-700 dark:text-gray-200 leading-relaxed font-medium">
-                {parseInline(lesson.content.intro)}
+           <div className="p-8 rounded-2xl bg-gray-50 dark:bg-slate-800/40 border-l-4 border-brand-500">
+              <p className="text-xl text-gray-700 dark:text-gray-200 leading-relaxed font-medium italic">
+                "{parseInline(lesson.content.intro)}"
               </p>
            </div>
         </div>
@@ -178,18 +222,18 @@ export const LessonView: React.FC<LessonViewProps> = ({
            {parseMarkdown(lesson.content.explanation)}
         </div>
 
-        {/* Blocos Estratégicos (Atenção e Exemplo) */}
+        {/* Blocos Estratégicos */}
         <div className="grid gap-8 mb-16">
           
           {/* Alerta de Erro Comum */}
-          <div className="relative overflow-hidden rounded-2xl border-l-4 border-rose-500 bg-white dark:bg-[#1a1012] shadow-sm p-8">
-             <div className="flex items-start gap-4 relative z-10">
-                <div className="p-3 bg-rose-50 dark:bg-rose-900/20 rounded-xl shrink-0 text-rose-600 dark:text-rose-400">
+          <div className="relative overflow-hidden rounded-2xl border border-rose-100 dark:border-rose-900/30 bg-rose-50/50 dark:bg-[#1a1012] p-8">
+             <div className="flex items-start gap-4">
+                <div className="p-3 bg-white dark:bg-rose-900/40 rounded-xl shrink-0 text-rose-600 dark:text-rose-400 shadow-sm">
                    <AlertTriangle className="w-6 h-6" />
                 </div>
                 <div>
                    <h3 className="text-base font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wide mb-2">
-                     Cuidado com este erro
+                     Onde a maioria erra
                    </h3>
                    <p className="text-lg text-gray-800 dark:text-gray-200 leading-relaxed">
                      {parseInline(lesson.content.commonErrors)}
@@ -200,21 +244,23 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
           {/* Exemplos Práticos */}
           {lesson.content.examples?.length > 0 && (
-            <div className="rounded-2xl bg-emerald-50/50 dark:bg-[#0A1F16] border border-emerald-100 dark:border-emerald-900/30 p-8">
+            <div className="rounded-2xl bg-white dark:bg-slate-800/20 border border-gray-200 dark:border-slate-700 p-8">
                <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
                     <Lightbulb className="w-5 h-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-emerald-800 dark:text-emerald-400">
-                    Na Prática
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                    Exemplos Práticos
                   </h3>
                </div>
                
                <div className="grid gap-4">
                  {lesson.content.examples.map((ex, i) => (
-                   <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800/30 shadow-sm">
-                     <CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
-                     <span className="text-gray-700 dark:text-emerald-100 text-lg leading-relaxed">
+                   <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-700/50">
+                     <div className="mt-1">
+                       <CheckCircle className="w-5 h-5 text-emerald-500" />
+                     </div>
+                     <span className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
                        {parseInline(ex)}
                      </span>
                    </div>
@@ -225,18 +271,18 @@ export const LessonView: React.FC<LessonViewProps> = ({
         </div>
 
         {/* Exercício */}
-        <div className="rounded-3xl bg-gray-900 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-800 text-white p-8 md:p-12 shadow-2xl relative overflow-hidden mb-12 group">
-           <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:opacity-20 transition-opacity transform scale-150">
-              <PlayCircle className="w-full h-full" />
+        <div className="rounded-3xl bg-gray-900 dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-800 text-white p-10 shadow-xl relative overflow-hidden mb-12">
+           <div className="absolute top-0 right-0 p-12 opacity-5">
+              <BookOpen className="w-64 h-64" />
            </div>
            <div className="relative z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-brand-300 text-xs font-bold uppercase tracking-wider mb-6">
-                <BookOpen className="w-3 h-3" /> Exercício
+                <PlayCircle className="w-3 h-3" /> Missão do dia
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold leading-snug mb-4">
-                 Agora é sua vez
+              <h3 className="text-2xl font-bold mb-4">
+                 Colocando em prática
               </h3>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed">
                 {parseInline(lesson.content.exercise)}
               </p>
            </div>
@@ -247,7 +293,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
            <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
               <Sparkles className="w-8 h-8 text-brand-500 mb-4" />
               <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Resumo da Aula</h3>
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+              <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-relaxed">
                 "{parseInline(lesson.content.summary)}"
               </p>
            </div>
@@ -256,7 +302,7 @@ export const LessonView: React.FC<LessonViewProps> = ({
       </div>
 
       {/* Footer Fixo */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0B1120] border-t border-gray-200 dark:border-gray-800 p-4 z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] dark:shadow-none">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-[#0B1120]/90 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 p-4 z-40">
          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
             <button 
               onClick={onPrev}
