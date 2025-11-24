@@ -1,116 +1,168 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useCourseProgress } from './hooks/useCourseProgress';
+import { useAuth } from './hooks/useAuth';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { LessonView } from './components/LessonView';
-import { Menu, X, Moon, Sun, PartyPopper, Check } from 'lucide-react';
+import { Auth } from './components/Auth';
+import { AdminPanel } from './components/AdminPanel';
+import { Menu, X, Moon, Sun, LogOut } from 'lucide-react';
 
-// Theme Toggle Component
 const ThemeToggle: React.FC<{ isDark: boolean; toggle: () => void }> = ({ isDark, toggle }) => (
   <button
     onClick={toggle}
-    className="fixed bottom-6 right-6 z-50 bg-white dark:bg-slate-800 text-gray-900 dark:text-white p-3 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform"
-    title={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
+    className="fixed bottom-6 right-6 z-[60] bg-white dark:bg-slate-800 text-gray-900 dark:text-white p-3 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-brand-500"
   >
     {isDark ? <Sun className="w-6 h-6 text-yellow-400" /> : <Moon className="w-6 h-6 text-slate-600" />}
   </button>
 );
 
-// Welcome Modal Component
-const WelcomeModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-dark-card w-full max-w-lg rounded-2xl shadow-2xl p-8 relative overflow-hidden animate-in zoom-in-95 duration-300 border border-gray-200 dark:border-dark-border">
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-400 to-brand-600"></div>
-        
-        <div className="flex justify-center mb-6">
-          <div className="bg-brand-100 dark:bg-brand-900/50 p-4 rounded-full animate-bounce">
-            <PartyPopper className="w-12 h-12 text-brand-600 dark:text-brand-400" />
-          </div>
-        </div>
-
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-          Parabéns pela decisão!
-        </h2>
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
-          Você acaba de investir no seu maior ativo: <strong>você mesmo.</strong>
-        </p>
-
-        <div className="space-y-3 mb-8">
-          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-            <div className="bg-green-100 dark:bg-green-900/30 p-1 rounded-full">
-              <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-            </div>
-            <span>Aprenda a controlar cada centavo</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-            <div className="bg-green-100 dark:bg-green-900/30 p-1 rounded-full">
-              <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-            </div>
-            <span>Saia das dívidas de forma inteligente</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-            <div className="bg-green-100 dark:bg-green-900/30 p-1 rounded-full">
-              <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
-            </div>
-            <span>Comece a investir e multiplicar riqueza</span>
-          </div>
-        </div>
-
-        <button 
-          onClick={onClose}
-          className="w-full bg-brand-600 hover:bg-brand-700 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg transition-transform active:scale-95"
-        >
-          Começar minha jornada
-        </button>
-      </div>
-    </div>
-  );
-};
-
 const App: React.FC = () => {
+  const auth = useAuth();
   const progress = useCourseProgress();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  
+  // Estado elevado para controlar quais módulos estão abertos no menu
+  const [expandedModules, setExpandedModules] = useState<string[]>(['mod1']);
 
+  // Content Protection Logic
+  useEffect(() => {
+    // Disable Right Click
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Disable Shortcuts (Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+P)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.ctrlKey || e.metaKey) && 
+        (e.key === 'c' || e.key === 'C' || 
+         e.key === 'x' || e.key === 'X' || 
+         e.key === 'u' || e.key === 'U' || 
+         e.key === 's' || e.key === 'S' || 
+         e.key === 'p' || e.key === 'P')
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Disable Drag and Drop (Images/Text)
+    const handleDragStart = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('dragstart', handleDragStart);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('dragstart', handleDragStart);
+    };
+  }, []);
+
+  const toggleModule = (modId: string) => {
+    setExpandedModules(prev => 
+      prev.includes(modId) ? prev.filter(id => id !== modId) : [...prev, modId]
+    );
+  };
+
+  const handleOpenModule = (modId: string) => {
+    if (!expandedModules.includes(modId)) {
+      setExpandedModules(prev => [...prev, modId]);
+    }
+    setIsSidebarOpen(true);
+  };
+
+  // Auth Routing
+  if (showAdminLogin) {
+    return (
+      <AdminPanel 
+        isAuthenticated={auth.isAdmin} 
+        onVerify={auth.verifyAdmin} 
+        users={auth.users} 
+        onBack={() => {
+          // Se o usuário estiver logado como aluno, apenas fecha o admin e volta pro dashboard.
+          // Se veio da tela de login (user é null), faz o logout completo para limpar estado.
+          if (!auth.user) {
+            auth.logout();
+          }
+          setShowAdminLogin(false);
+        }} 
+      />
+    );
+  }
+
+  if (!auth.user) {
+    return (
+      <>
+        <ThemeToggle isDark={progress.isDarkMode} toggle={progress.toggleTheme} />
+        <Auth 
+          onLogin={auth.login} 
+          onRegister={auth.register} 
+          onAdminClick={() => setShowAdminLogin(true)}
+        />
+      </>
+    );
+  }
+
+  // Course App
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
-      
+    <div className="flex min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300 select-none">
       <ThemeToggle isDark={progress.isDarkMode} toggle={progress.toggleTheme} />
-      <WelcomeModal isOpen={progress.showWelcomeModal} onClose={progress.closeWelcomeModal} />
 
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-white dark:bg-dark-card border-b border-gray-200 dark:border-dark-border px-4 py-3 z-50 flex items-center justify-between transition-colors duration-300">
-        <span className="font-bold text-gray-900 dark:text-white">Finanças Pessoais</span>
-        <button 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg"
-        >
-          {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
+      {/* Header Mobile - Z-Index ajustado para ficar abaixo do Sidebar quando aberto */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 bg-white dark:bg-dark-card border-b border-gray-200 dark:border-dark-border px-4 py-3 z-30 flex items-center justify-between shadow-sm">
+        <h1 className="font-bold text-brand-600 dark:text-brand-400 text-lg">Finanças</h1>
+        <div className="flex items-center gap-2">
+           <button onClick={auth.logout} className="p-2 text-gray-500 hover:text-red-500">
+             <LogOut className="w-5 h-5" />
+           </button>
+           <button 
+             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+             className="p-2 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+           >
+             {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+           </button>
+        </div>
+      </header>
 
-      {/* Overlay for mobile sidebar */}
+      {/* Overlay Escuro para Mobile - Z-Index 40 (Acima do Header, Abaixo do Sidebar) */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar Navigation */}
-      <Sidebar 
-        modules={progress.modules}
-        completedLessons={progress.completedLessons}
-        currentLessonId={progress.currentLessonId}
-        onSelectLesson={progress.setCurrentLesson}
-        isOpen={isSidebarOpen}
-        onCloseMobile={() => setIsSidebarOpen(false)}
-      />
+      {/* Sidebar - Container fixo no desktop, com comportamento Z-Index corrigido no mobile */}
+      <div className="lg:h-screen lg:sticky lg:top-0">
+        <Sidebar 
+          modules={progress.modules}
+          completedLessons={progress.completedLessons}
+          currentLessonId={progress.currentLessonId}
+          onSelectLesson={progress.setCurrentLesson}
+          isOpen={isSidebarOpen}
+          onCloseMobile={() => setIsSidebarOpen(false)}
+          userName={auth.user.name}
+          onLogout={auth.logout}
+          expandedModules={expandedModules}
+          toggleModule={toggleModule}
+          onOpenAdmin={() => {
+            setIsSidebarOpen(false); // Fecha sidebar mobile se estiver aberta
+            setShowAdminLogin(true);
+          }}
+        />
+      </div>
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full transition-all duration-300 pt-16 lg:pt-0 min-h-screen">
+      {/* Main Content */}
+      <main className="flex-1 w-full pt-16 lg:pt-0 min-h-screen flex flex-col max-w-[1600px] mx-auto z-0 relative">
         {progress.currentLessonId ? (
           <LessonView 
             lessonId={progress.currentLessonId}
@@ -118,14 +170,19 @@ const App: React.FC = () => {
             isCompleted={progress.completedLessons.includes(progress.currentLessonId)}
             onComplete={(id) => {
               progress.markLessonComplete(id);
-              window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              progress.navigateToNext();
             }}
             onNext={progress.navigateToNext}
             onPrev={progress.navigateToPrev}
             onHome={() => progress.setCurrentLesson(null)}
           />
         ) : (
-          <Dashboard context={progress} />
+          <Dashboard 
+            context={progress} 
+            userName={auth.user.name} 
+            onViewModule={handleOpenModule}
+          />
         )}
       </main>
     </div>

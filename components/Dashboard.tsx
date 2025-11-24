@@ -1,232 +1,166 @@
-import React, { useState } from 'react';
-import { CourseContextType, Module } from '../types';
+import React from 'react';
+import { CourseContextType } from '../types';
 import { ProgressBar } from './ProgressBar';
-import { 
-  Trophy, Clock, BookOpen, Play, CheckCircle, 
-  Target, TrendingUp, ShieldCheck, ChevronDown, 
-  ChevronUp, Lock, PlayCircle, ArrowRight
-} from 'lucide-react';
+import { Trophy, ArrowRight, Play, CheckCircle, List, Eye } from 'lucide-react';
 
 interface DashboardProps {
   context: CourseContextType;
+  userName: string;
+  onViewModule: (moduleId: string) => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ context }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ context, userName, onViewModule }) => {
   const { modules, progressPercentage, setCurrentLesson, completedLessons } = context;
-  const [activeModuleId, setActiveModuleId] = useState<string | null>('mod1');
 
-  const scrollToModules = () => {
-    const element = document.getElementById('modules-list');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const nextLesson = React.useMemo(() => {
+    for (const mod of modules) {
+      for (const lesson of mod.lessons) {
+        if (!completedLessons.includes(lesson.id)) {
+          return { lesson, module: mod };
+        }
+      }
+    }
+    return null;
+  }, [modules, completedLessons]);
+
+  const handleContinueModule = (module: any) => {
+    // Encontra a primeira aula NÃO completada deste módulo
+    const firstUncompletedLesson = module.lessons.find((l: any) => !completedLessons.includes(l.id));
+    
+    if (firstUncompletedLesson) {
+      setCurrentLesson(firstUncompletedLesson.id);
+    } else {
+      // Se todas estiverem completas, volta para a primeira (revisão)
+      setCurrentLesson(module.lessons[0].id);
     }
   };
 
-  const toggleModule = (id: string) => {
-    setActiveModuleId(activeModuleId === id ? null : id);
-  };
-
   return (
-    <div className="w-full">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-white dark:bg-dark-card border-b border-gray-200 dark:border-dark-border transition-colors duration-300">
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="w-full animate-in fade-in duration-500 pb-20">
+      
+      {/* Welcome Hero */}
+      <header className="bg-white dark:bg-dark-card border-b border-gray-100 dark:border-dark-border px-6 md:px-12 py-12 mb-8">
+        <div className="max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-2">
+            Olá, <span className="text-brand-600 dark:text-brand-400">{userName}</span>! 👋
+          </h1>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            Vamos continuar construindo sua liberdade financeira hoje?
+          </p>
+        </div>
+      </header>
+
+      <div className="px-6 md:px-12 max-w-7xl mx-auto space-y-10">
         
-        <div className="max-w-6xl mx-auto px-6 py-12 md:py-16 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-xs font-bold tracking-wide uppercase mb-4 border border-brand-200 dark:border-brand-800/50">
-                <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-                Área do Aluno
+        {/* Progress Card */}
+        <section className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-3xl p-8 text-white shadow-xl shadow-brand-500/20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between">
+            <div className="flex-1 w-full">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                  <Trophy className="w-6 h-6 text-yellow-300" />
+                </div>
+                <h2 className="font-bold text-lg">Seu Progresso Geral</h2>
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
-                Finanças Pessoais
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl leading-relaxed">
-                Você deu o primeiro passo para a liberdade. Aqui você vai dominar seu dinheiro, 
-                eliminar dívidas e construir um patrimônio sólido.
-              </p>
-              
-              <div className="flex flex-wrap gap-4">
+              <div className="w-full bg-black/20 rounded-full h-4 mb-2 overflow-hidden backdrop-blur-sm">
+                <div 
+                  className="bg-white h-full rounded-full transition-all duration-1000 ease-out"
+                  style={{ width: `${progressPercentage}%` }}
+                ></div>
+              </div>
+              <p className="text-brand-100 text-sm font-medium">{progressPercentage}% Concluído</p>
+            </div>
+
+            {nextLesson ? (
+              <div className="w-full md:w-auto bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl min-w-[300px]">
+                <p className="text-brand-100 text-xs font-bold uppercase mb-2 tracking-wider">Próxima Aula Sugerida</p>
+                <h3 className="font-bold text-xl mb-1 line-clamp-1">{nextLesson.lesson.title}</h3>
+                <p className="text-sm text-brand-50 mb-4 opacity-90">{nextLesson.module.title}</p>
                 <button 
-                  onClick={scrollToModules}
-                  className="bg-brand-600 hover:bg-brand-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-brand-500/20 transition-all transform hover:-translate-y-1 flex items-center gap-3"
+                  onClick={() => setCurrentLesson(nextLesson.lesson.id)}
+                  className="w-full bg-white text-brand-700 hover:bg-brand-50 font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
-                  {progressPercentage > 0 ? 'CONTINUAR ESTUDOS' : 'COMEÇAR AGORA'}
-                  <ArrowRight className="w-5 h-5" />
+                  Continuar <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
-            </div>
-
-            <div className="w-full md:w-1/3 bg-gray-50 dark:bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-200 dark:border-dark-border shadow-xl">
-              <h3 className="text-gray-900 dark:text-white font-bold mb-4 flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-yellow-500" />
-                Seu Desempenho
-              </h3>
-              <ProgressBar progress={progressPercentage} className="mb-6" />
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-dark-card p-4 rounded-xl border border-gray-100 dark:border-dark-border">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {completedLessons.length}
-                  </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase mt-1">
-                    Aulas Concluídas
-                  </div>
-                </div>
-                <div className="bg-white dark:bg-dark-card p-4 rounded-xl border border-gray-100 dark:border-dark-border">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {modules.reduce((acc, m) => acc + m.lessons.length, 0)}
-                  </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase mt-1">
-                    Total de Aulas
-                  </div>
-                </div>
-              </div>
-            </div>
+            ) : (
+               <div className="w-full md:w-auto bg-white/20 backdrop-blur-md p-6 rounded-2xl text-center min-w-[200px]">
+                 <p className="font-bold text-xl">🎉 Curso Concluído!</p>
+               </div>
+            )}
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Learning Pillars */}
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">O que você vai dominar</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-dark-card p-6 rounded-xl border border-gray-200 dark:border-dark-border hover:border-brand-500 dark:hover:border-brand-500 transition-colors group">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Target className="w-6 h-6" />
-            </div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Organização Total</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Aprenda a mapear cada centavo, criar orçamentos inteligentes e nunca mais ficar no vermelho.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-dark-card p-6 rounded-xl border border-gray-200 dark:border-dark-border hover:border-brand-500 dark:hover:border-brand-500 transition-colors group">
-            <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Blindagem & Dívidas</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Estratégias para sair das dívidas pagando menos e proteger seu patrimônio de armadilhas.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-dark-card p-6 rounded-xl border border-gray-200 dark:border-dark-border hover:border-brand-500 dark:hover:border-brand-500 transition-colors group">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-brand-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <TrendingUp className="w-6 h-6" />
-            </div>
-            <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">Investimentos</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Do Tesouro Direto aos Fundos Imobiliários. Faça o dinheiro trabalhar por você.
-            </p>
-          </div>
-        </div>
-      </div>
+        {/* Modules Grid */}
+        <section>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+            <span className="w-1.5 h-6 bg-brand-500 rounded-full"></span>
+            Módulos do Curso
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {modules.map((module) => {
+              const completedCount = module.lessons.filter(l => completedLessons.includes(l.id)).length;
+              const totalCount = module.lessons.length;
+              const percent = Math.round((completedCount / totalCount) * 100);
+              const isStarted = completedCount > 0;
+              const isCompleted = percent === 100;
+              const hasPending = completedCount < totalCount;
 
-      {/* Course Content List */}
-      <div id="modules-list" className="max-w-5xl mx-auto px-6 py-12 pb-24">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Conteúdo do Curso</h2>
-          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-            {modules.length} Módulos • {modules.reduce((acc, m) => acc + m.lessons.length, 0)} Aulas
-          </span>
-        </div>
-
-        <div className="space-y-6">
-          {modules.map((module, index) => {
-            const isActive = activeModuleId === module.id;
-            const completedInModule = module.lessons.filter(l => completedLessons.includes(l.id)).length;
-            const totalInModule = module.lessons.length;
-            const percentModule = Math.round((completedInModule / totalInModule) * 100);
-            const isModuleCompleted = percentModule === 100;
-
-            return (
-              <div 
-                key={module.id} 
-                className={`
-                  rounded-2xl border transition-all duration-300 overflow-hidden
-                  ${isActive 
-                    ? 'bg-white dark:bg-dark-card border-brand-500 dark:border-brand-500 shadow-lg shadow-brand-500/10' 
-                    : 'bg-white dark:bg-dark-card border-gray-200 dark:border-dark-border hover:border-gray-300 dark:hover:border-gray-600'}
-                `}
-              >
-                <button 
-                  onClick={() => toggleModule(module.id)}
-                  className="w-full px-6 py-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-left"
+              return (
+                <div 
+                  key={module.id} 
+                  className={`
+                    group bg-white dark:bg-dark-card border rounded-2xl p-6 transition-all hover:shadow-lg flex flex-col
+                    ${isStarted ? 'border-brand-200 dark:border-brand-900/30' : 'border-gray-200 dark:border-dark-border'}
+                  `}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex justify-between items-start mb-4">
                     <div className={`
-                      w-12 h-12 rounded-xl flex items-center justify-center shrink-0 font-bold text-lg transition-colors
-                      ${isModuleCompleted 
-                        ? 'bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400' 
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'}
+                      w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg
+                      ${isCompleted ? 'bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400' : 'bg-gray-100 text-gray-500 dark:bg-slate-800 dark:text-gray-400'}
                     `}>
-                      {isModuleCompleted ? <CheckCircle className="w-6 h-6" /> : index + 1}
+                      {isCompleted ? <CheckCircle className="w-6 h-6" /> : (modules.indexOf(module) + 1)}
                     </div>
-                    <div>
-                      <h3 className={`text-lg font-bold ${isActive ? 'text-brand-700 dark:text-brand-400' : 'text-gray-900 dark:text-white'}`}>
-                        {module.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        {completedInModule}/{totalInModule} aulas concluídas
-                      </p>
-                    </div>
+                    {isStarted && (
+                      <span className="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-2 py-1 rounded-full">
+                        {percent}%
+                      </span>
+                    )}
                   </div>
                   
-                  <div className="flex items-center gap-6 pl-16 md:pl-0">
-                    <div className="hidden md:block w-32">
-                      <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-brand-500 rounded-full" 
-                          style={{ width: `${percentModule}%` }}
-                        />
-                      </div>
-                    </div>
-                    {isActive ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
-                  </div>
-                </button>
+                  <h4 className="font-bold text-gray-900 dark:text-white text-lg mb-2 leading-tight group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {module.title}
+                  </h4>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex-1">
+                    {completedCount} de {totalCount} aulas
+                  </p>
 
-                {/* Lessons List */}
-                <div className={`
-                  transition-all duration-300 ease-in-out
-                  ${isActive ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}
-                  bg-gray-50 dark:bg-slate-900/50 border-t border-gray-100 dark:border-dark-border
-                `}>
-                  <div className="p-2 md:p-4 space-y-2">
-                    {module.lessons.map((lesson) => {
-                      const isLessonCompleted = completedLessons.includes(lesson.id);
-                      return (
-                        <button
-                          key={lesson.id}
-                          onClick={() => setCurrentLesson(lesson.id)}
-                          className="w-full flex items-center justify-between p-3 md:p-4 rounded-lg hover:bg-white dark:hover:bg-slate-800 transition-colors group text-left border border-transparent hover:border-gray-200 dark:hover:border-dark-border"
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className={`
-                              w-8 h-8 rounded-full flex items-center justify-center shrink-0
-                              ${isLessonCompleted ? 'text-brand-500' : 'text-gray-400'}
-                            `}>
-                              {isLessonCompleted ? <CheckCircle className="w-5 h-5" /> : <PlayCircle className="w-5 h-5 group-hover:text-brand-500 transition-colors" />}
-                            </div>
-                            <div>
-                              <span className={`text-sm md:text-base font-medium ${isLessonCompleted ? 'text-gray-500 dark:text-gray-500 line-through' : 'text-gray-700 dark:text-gray-200'}`}>
-                                {lesson.title}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 text-xs text-gray-400">
-                            <Clock className="w-3 h-3" />
-                            {lesson.duration}
-                          </div>
-                        </button>
-                      );
-                    })}
+                  <div className="grid grid-cols-4 gap-2">
+                    {/* Botão Principal: Continuar/Iniciar */}
+                    <button 
+                      onClick={() => handleContinueModule(module)}
+                      className="col-span-3 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-500/20"
+                    >
+                      {isStarted && hasPending ? 'Continuar' : isCompleted ? 'Revisar' : 'Iniciar'}
+                      <Play className="w-4 h-4 fill-current" />
+                    </button>
+
+                    {/* Botão Secundário: Visualizar Aulas (Olho) */}
+                    <button 
+                      onClick={() => onViewModule(module.id)}
+                      title="Visualizar lista de aulas"
+                      className="col-span-1 flex items-center justify-center rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-brand-500 dark:hover:border-brand-500 hover:bg-brand-50 dark:hover:bg-brand-900/10 text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-all"
+                    >
+                      <List className="w-5 h-5" />
+                    </button>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </div>
   );

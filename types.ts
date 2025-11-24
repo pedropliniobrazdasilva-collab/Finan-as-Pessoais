@@ -1,7 +1,7 @@
 export interface Lesson {
   id: string;
   title: string;
-  duration: string; // e.g., "15 min"
+  duration: string;
   content: {
     intro: string;
     explanation: string;
@@ -18,11 +18,12 @@ export interface Module {
   lessons: Lesson[];
 }
 
-export interface CourseState {
-  completedLessons: string[]; // Array of Lesson IDs
-  currentLessonId: string | null; // null means Dashboard
-  isDarkMode: boolean;
-  showWelcomeModal: boolean;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password?: string; // Stored locally for demo purposes
+  registeredAt: string;
 }
 
 export interface CourseContextType {
