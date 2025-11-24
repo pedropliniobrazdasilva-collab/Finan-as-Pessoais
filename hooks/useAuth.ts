@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { User } from '../types';
 import { hashValue, ADMIN_HASH } from '../utils/crypto';
 
@@ -20,13 +20,21 @@ export const useAuth = () => {
   });
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [usersList, setUsersList] = useState<User[]>([]);
 
-  const getAllUsers = (): User[] => {
+  const getAllUsers = useCallback((): User[] => {
     try {
       const users = localStorage.getItem('fp_users');
       return users ? JSON.parse(users) : [];
     } catch { return []; }
-  };
+  }, []);
+
+  // Atualiza a lista sempre que o status de admin mudar
+  useEffect(() => {
+    if (isAdmin) {
+      setUsersList(getAllUsers());
+    }
+  }, [isAdmin, getAllUsers]);
 
   const login = async (email: string, pass: string) => {
     try {
@@ -72,6 +80,9 @@ export const useAuth = () => {
       setUser(safeUser as User);
       localStorage.setItem('fp_active_user', JSON.stringify(safeUser));
       
+      // Atualiza a lista local se estivermos logados como admin (ex: auto-cadastro)
+      if (isAdmin) setUsersList(updatedUsers);
+
       return { success: true };
     } catch (e) {
       console.error("Erro no registro:", e);
@@ -87,9 +98,6 @@ export const useAuth = () => {
 
   const verifyAdmin = async (pass: string) => {
     try {
-      // Se crypto API não existir (ambiente inseguro), o hash gerado aqui
-      // não baterá com o ADMIN_HASH (SHA-256), então o admin só funciona em HTTPS/Localhost.
-      // Isso é esperado para segurança.
       const inputHash = await hashValue(pass);
       if (inputHash === ADMIN_HASH) {
         setIsAdmin(true);
@@ -101,13 +109,31 @@ export const useAuth = () => {
     }
   };
 
+  const generateTestUsers = async () => {
+    const dummyNames = ["Carlos Silva", "Ana Pereira", "Roberto Santos", "Fernanda Lima", "João Souza"];
+    const currentUsers = getAllUsers();
+    
+    const newUsers = await Promise.all(dummyNames.map(async (name, i) => ({
+      id: generateId(),
+      name,
+      email: `${name.toLowerCase().replace(' ', '.')}@email.com`,
+      password: await hashValue('12345678'),
+      registeredAt: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toISOString()
+    })));
+
+    const updated = [...currentUsers, ...newUsers];
+    localStorage.setItem('fp_users', JSON.stringify(updated));
+    setUsersList(updated);
+  };
+
   return {
     user,
     isAdmin,
-    users: isAdmin ? getAllUsers() : [],
+    users: usersList,
     login,
     register,
     logout,
-    verifyAdmin
+    verifyAdmin,
+    generateTestUsers
   };
 };

@@ -87,6 +87,7 @@ const App: React.FC = () => {
         isAuthenticated={auth.isAdmin} 
         onVerify={auth.verifyAdmin} 
         users={auth.users} 
+        onGenerateUsers={auth.generateTestUsers}
         onBack={() => {
           // Se o usuário estiver logado como aluno, apenas fecha o admin e volta pro dashboard.
           // Se veio da tela de login (user é null), faz o logout completo para limpar estado.
