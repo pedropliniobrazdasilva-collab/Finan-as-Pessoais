@@ -19,6 +19,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    // O trim é feito no crypto.ts, mas garantimos aqui visualmente
     const isValid = await onVerify(password);
     if (!isValid) {
       setError(true);
@@ -41,30 +42,33 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
             <p className="text-gray-400 text-sm mt-2">Acesso restrito à equipe</p>
           </div>
           
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div className="relative">
-              <input 
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={e => { setPassword(e.target.value); setError(false); }}
-                placeholder="Senha de administrador"
-                className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-4 pr-12 py-3 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all placeholder:text-gray-600"
-                autoFocus
-                autoComplete="current-password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-500 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
-                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Senha Mestra</label>
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={e => { setPassword(e.target.value); setError(false); }}
+                  placeholder="Digite a senha"
+                  className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-4 pr-12 py-3 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all placeholder:text-gray-600"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-gray-500 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+                  tabIndex={-1}
+                  title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
 
             {error && (
-              <div className="p-3 rounded-lg bg-red-900/20 border border-red-900/50 text-red-400 text-sm font-medium text-center animate-pulse">
-                Senha incorreta. Tente novamente.
+              <div className="p-3 rounded-lg bg-red-900/20 border border-red-900/50 text-red-400 text-sm font-medium text-center animate-pulse flex items-center justify-center gap-2">
+                <Lock className="w-4 h-4" /> Senha incorreta
               </div>
             )}
             
@@ -72,7 +76,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
               disabled={loading}
               className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-red-900/20"
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar no Painel"}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Acessar Painel"}
             </button>
           </form>
         </div>
