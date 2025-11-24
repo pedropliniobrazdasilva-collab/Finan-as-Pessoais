@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { User } from '../types';
-import { Lock, ArrowLeft, Users, Calendar, Mail, Loader2 } from 'lucide-react';
+import { Lock, ArrowLeft, Users, Calendar, Mail, Loader2, Eye, EyeOff } from 'lucide-react';
 
 interface AdminPanelProps {
   onVerify: (pass: string) => Promise<boolean>;
@@ -14,6 +14,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +29,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-        <div className="w-full max-w-sm bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl">
-          <button onClick={onBack} className="text-gray-400 hover:text-white mb-6 flex items-center gap-2 text-sm">
+        <div className="w-full max-w-sm bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl animate-in fade-in zoom-in-95 duration-300">
+          <button onClick={onBack} className="text-gray-400 hover:text-white mb-6 flex items-center gap-2 text-sm transition-colors">
             <ArrowLeft className="w-4 h-4" /> Voltar
           </button>
           <div className="text-center mb-8">
@@ -37,22 +38,41 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
                <Lock className="w-8 h-8 text-red-500" />
             </div>
             <h2 className="text-xl font-bold text-white">Área Administrativa</h2>
+            <p className="text-gray-400 text-sm mt-2">Acesso restrito à equipe</p>
           </div>
+          
           <form onSubmit={handleLogin} className="space-y-4">
-            <input 
-              type="password" 
-              value={password}
-              onChange={e => { setPassword(e.target.value); setError(false); }}
-              placeholder="Senha de administrador"
-              className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none"
-              autoFocus
-            />
-            {error && <p className="text-red-400 text-sm font-medium">Senha incorreta.</p>}
+            <div className="relative">
+              <input 
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={e => { setPassword(e.target.value); setError(false); }}
+                placeholder="Senha de administrador"
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-4 pr-12 py-3 text-white focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all placeholder:text-gray-600"
+                autoFocus
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-500 hover:text-white transition-colors rounded-lg hover:bg-gray-700"
+                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {error && (
+              <div className="p-3 rounded-lg bg-red-900/20 border border-red-900/50 text-red-400 text-sm font-medium text-center animate-pulse">
+                Senha incorreta. Tente novamente.
+              </div>
+            )}
+            
             <button 
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-red-900/20"
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar"}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Entrar no Painel"}
             </button>
           </form>
         </div>
@@ -63,9 +83,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 md:p-12">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-4">
-            <div className="bg-brand-600 p-3 rounded-lg">
+            <div className="bg-brand-600 p-3 rounded-xl shadow-lg shadow-brand-500/20">
               <Users className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -73,7 +93,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
               <p className="text-gray-500 dark:text-gray-400">Gerenciamento de alunos da plataforma</p>
             </div>
           </div>
-          <button onClick={onBack} className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <button onClick={onBack} className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm font-medium text-sm">
             Sair do Admin
           </button>
         </div>
@@ -92,7 +112,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                 {users.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="px-6 py-8 text-center text-gray-500">Nenhum usuário registrado.</td>
+                    <td colSpan={4} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                      <div className="flex flex-col items-center gap-2">
+                        <Users className="w-8 h-8 opacity-20" />
+                        <p>Nenhum aluno registrado ainda.</p>
+                      </div>
+                    </td>
                   </tr>
                 ) : (
                   users.map(user => (
@@ -105,7 +130,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold border border-green-200 dark:border-green-800">
                           <Lock className="w-3 h-3" /> Hash Protegido
                         </span>
                       </td>
@@ -113,7 +138,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onVerify, users, onBack,
                         <div className="flex items-center gap-2">
                           <Calendar className="w-3 h-3 text-gray-400" />
                           {new Date(user.registeredAt).toLocaleDateString('pt-BR', {
-                            day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                            day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
                           })}
                         </div>
                       </td>
