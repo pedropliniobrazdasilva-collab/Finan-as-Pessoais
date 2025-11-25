@@ -1,7 +1,7 @@
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Module } from '../types';
-import { ChevronLeft, ChevronRight, CheckCircle, Clock, ArrowRight, AlertTriangle, BookOpen, Sparkles, Lightbulb, PlayCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle, Clock, ArrowRight, AlertTriangle, BookOpen, Sparkles, Lightbulb, PlayCircle, Image as ImageIcon, Book } from 'lucide-react';
 
 interface LessonViewProps {
   lessonId: string;
@@ -20,10 +20,10 @@ const parseInline = (text: string): React.ReactNode[] => {
   
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-bold text-gray-900 dark:text-white">{part.slice(2, -2)}</strong>;
+      return <strong key={i} className="font-extrabold text-gray-900 dark:text-white">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i} className="italic text-gray-600 dark:text-gray-400 font-medium font-sans">{part.slice(1, -1)}</em>;
+      return <em key={i} className="italic text-brand-600 dark:text-brand-400 font-medium font-serif">{part.slice(1, -1)}</em>;
     }
     return part;
   });
@@ -31,102 +31,102 @@ const parseInline = (text: string): React.ReactNode[] => {
 
 const parseMarkdown = (text: string) => {
   if (!text) return null;
-  // Divide por quebras de linha duplas para parágrafos, mas respeita quebras simples para listas
   const blocks = text.split(/\n\n+/);
 
   return blocks.map((block, index) => {
     const cleanBlock = block.trim();
 
-    // Títulos H3
     if (cleanBlock.startsWith('###')) {
       return (
-        <h3 key={index} className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4 flex items-center gap-3">
-          <span className="w-1.5 h-5 bg-brand-500 rounded-full"></span>
+        <h3 key={index} className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-12 mb-6 flex items-center gap-3">
+          <span className="w-1.5 h-6 bg-brand-500 rounded-full"></span>
           {parseInline(cleanBlock.replace(/^###\s*/, ''))}
         </h3>
       );
     }
     
-    // Títulos H2
     if (cleanBlock.startsWith('##')) {
       return (
-        <h2 key={index} className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-6 border-b border-gray-100 dark:border-gray-800 pb-3">
+        <h2 key={index} className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mt-14 mb-8 border-b border-gray-100 dark:border-gray-800 pb-4">
           {parseInline(cleanBlock.replace(/^##\s*/, ''))}
         </h2>
       );
     }
 
-    // Tabelas (linhas começando com |)
     if (cleanBlock.startsWith('|')) {
       const rows = cleanBlock.split('\n').filter(r => r.trim());
       const headerRow = rows[0];
-      const bodyRows = rows.slice(2); // Pula a linha separadora |---|---|
+      // Filtra a linha de separação |---|
+      const bodyRows = rows.slice(1).filter(row => !row.includes('---')); 
 
       const parseCell = (row: string) => {
-        return row.split('|').filter(c => c.trim() !== '').map(c => c.trim());
+        return row.split('|').filter((c, i, arr) => i > 0 && i < arr.length - 1).map(c => c.trim());
       };
 
       const headers = parseCell(headerRow);
 
       return (
-        <div key={index} className="overflow-x-auto my-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm bg-gray-50 dark:bg-slate-900/50">
-          <table className="w-full text-left border-collapse min-w-[500px]">
-            <thead>
-              <tr className="bg-gray-100 dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700">
-                {headers.map((h, i) => (
-                  <th key={i} className="px-5 py-4 text-xs font-extrabold text-gray-700 dark:text-gray-200 uppercase tracking-wider">
-                    {parseInline(h)}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-              {bodyRows.map((row, rIndex) => {
-                const cells = parseCell(row);
-                return (
-                  <tr key={rIndex} className="hover:bg-gray-50 dark:hover:bg-slate-800/30 transition-colors">
-                    {cells.map((cell, cIndex) => (
-                      <td key={cIndex} className="px-5 py-4 text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed align-top">
-                        {parseInline(cell)}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div key={index} className="my-10 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg shadow-gray-200/40 dark:shadow-none bg-white dark:bg-slate-900/40 ring-1 ring-gray-100 dark:ring-gray-800">
+          <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
+            <table className="w-full min-w-[600px] border-collapse text-left">
+              <thead>
+                <tr className="bg-gray-50/80 dark:bg-slate-800/80 border-b border-gray-200 dark:border-gray-700">
+                  {headers.map((h, i) => (
+                    <th key={i} className="px-6 py-5 text-xs font-extrabold text-gray-500 dark:text-gray-400 uppercase tracking-widest first:pl-8 last:pr-8 whitespace-nowrap">
+                      {parseInline(h)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {bodyRows.map((row, rIndex) => {
+                  const cells = parseCell(row);
+                  return (
+                    <tr 
+                      key={rIndex} 
+                      className="group transition-colors hover:bg-brand-50/30 dark:hover:bg-brand-900/10 bg-white dark:bg-transparent"
+                    >
+                      {cells.map((cell, cIndex) => (
+                        <td key={cIndex} className="px-6 py-5 text-gray-700 dark:text-gray-300 text-sm md:text-base font-medium leading-relaxed first:pl-8 last:pr-8 align-top">
+                          {parseInline(cell)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     }
 
-    // Listas com Bullets
     if (cleanBlock.startsWith('* ') || cleanBlock.startsWith('- ')) {
       const items = cleanBlock.split('\n').filter(line => line.trim().match(/^[*|-]\s/));
       return (
-        <ul key={index} className="space-y-3 mb-6 ml-1">
+        <ul key={index} className="space-y-4 mb-8 ml-2">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 leading-relaxed p-2 rounded-lg transition-colors hover:bg-gray-50 dark:hover:bg-slate-800/30">
-              <div className="mt-2 w-1.5 h-1.5 bg-brand-500 rounded-full shrink-0" />
-              <span className="text-base md:text-lg">{parseInline(item.replace(/^[*|-]\s/, '').trim())}</span>
+            <li key={i} className="flex items-start gap-4 text-gray-800 dark:text-gray-200 leading-relaxed p-3 rounded-xl transition-colors hover:bg-white dark:hover:bg-slate-800/40 border border-transparent hover:border-gray-100 dark:hover:border-slate-700">
+              <div className="mt-2.5 w-2 h-2 bg-brand-500 rounded-full shrink-0 shadow-sm shadow-brand-500/50" />
+              <span className="text-lg md:text-xl">{parseInline(item.replace(/^[*|-]\s/, '').trim())}</span>
             </li>
           ))}
         </ul>
       );
     }
 
-    // Listas Numeradas
     if (/^\d+\./.test(cleanBlock)) {
       const items = cleanBlock.split('\n').filter(line => /^\d+\./.test(line.trim()));
       return (
-        <div key={index} className="grid gap-3 mb-6">
+        <div key={index} className="grid gap-4 mb-8">
           {items.map((item, i) => {
              const content = item.replace(/^\d+\.\s*/, '').trim();
              return (
-              <div key={i} className="flex gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-slate-800/40 border border-gray-100 dark:border-slate-700/50 hover:border-gray-300 dark:hover:border-slate-600 transition-colors">
-                <span className="flex items-center justify-center w-6 h-6 rounded-md bg-brand-100 dark:bg-slate-700 text-brand-700 dark:text-brand-400 font-bold text-xs shrink-0 mt-0.5">
+              <div key={i} className="flex gap-5 p-5 rounded-2xl bg-white dark:bg-slate-800/40 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all">
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-100 dark:bg-slate-700 text-brand-700 dark:text-brand-400 font-bold text-lg shrink-0 mt-0.5 font-mono">
                   {i + 1}
                 </span>
-                <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                <div className="text-gray-800 dark:text-gray-200 leading-relaxed text-lg md:text-xl">
                   {parseInline(content)}
                 </div>
               </div>
@@ -136,9 +136,8 @@ const parseMarkdown = (text: string) => {
       );
     }
 
-    // Parágrafos Padrão
     return (
-      <p key={index} className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg font-normal text-left">
+      <p key={index} className="mb-8 text-gray-800 dark:text-gray-200 leading-8 text-lg md:text-xl font-normal text-left tracking-wide">
         {parseInline(cleanBlock)}
       </p>
     );
@@ -154,6 +153,8 @@ export const LessonView: React.FC<LessonViewProps> = ({
   onPrev,
   onHome
 }) => {
+  const [imgError, setImgError] = useState(false);
+
   const activeData = useMemo(() => {
     if (!modules) return null;
     for (const mod of modules) {
@@ -165,18 +166,19 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setImgError(false); // Reset error state on lesson change
   }, [lessonId]);
 
   if (!activeData) return null;
   const { lesson, module } = activeData;
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-[#0B1120] pb-32 font-sans selection:bg-brand-500/30 selection:text-inherit">
+    <div className="w-full min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] pb-32 font-sans selection:bg-brand-500/30 selection:text-inherit">
       
       {/* Barra de Navegação Topo */}
       <div className="sticky top-0 z-30 bg-white/95 dark:bg-[#0B1120]/95 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 px-4 h-16 flex items-center justify-between">
-         <button onClick={onHome} className="flex items-center gap-2 text-gray-500 hover:text-brand-600 dark:text-gray-400 transition-colors text-sm font-medium">
-            <ChevronLeft className="w-4 h-4" />
+         <button onClick={onHome} className="flex items-center gap-2 text-gray-600 hover:text-brand-600 dark:text-gray-400 transition-colors text-sm font-medium">
+            <ChevronLeft className="w-5 h-5" />
             <span className="hidden sm:inline">Voltar ao Menu</span>
          </button>
          
@@ -208,37 +210,62 @@ export const LessonView: React.FC<LessonViewProps> = ({
               )}
            </div>
            
-           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight mb-8 tracking-tight">
+           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-8 tracking-tight">
               {lesson.title.split('. ')[1] || lesson.title}
            </h1>
 
-           <div className="p-6 md:p-8 rounded-2xl bg-white dark:bg-slate-800 border-l-4 border-brand-500 shadow-sm">
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200 leading-relaxed font-serif italic">
+           <div className="p-6 md:p-10 rounded-3xl bg-white dark:bg-slate-800 border-l-8 border-brand-500 shadow-md">
+              <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-200 leading-relaxed font-serif italic">
                 "{parseInline(lesson.content.intro)}"
               </p>
            </div>
         </div>
 
         {/* Conteúdo Principal em Card */}
-        <div className="bg-white dark:bg-slate-800/40 rounded-3xl p-6 md:p-10 border border-gray-100 dark:border-gray-800 shadow-sm mb-12">
-            {parseMarkdown(lesson.content.explanation)}
+        <div className="bg-white dark:bg-slate-800/40 rounded-[2rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none mb-12">
+            {/* Banner da Imagem */}
+            {lesson.image && !imgError ? (
+                <div className="relative w-full border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-slate-900 p-8 flex justify-center">
+                    <img 
+                        src={lesson.image} 
+                        alt={`Ilustração didática: ${lesson.title}`}
+                        className="w-full max-w-3xl h-auto max-h-[500px] object-cover rounded-xl shadow-lg ring-1 ring-gray-900/5 dark:ring-white/10"
+                        onError={() => setImgError(true)}
+                    />
+                </div>
+            ) : (
+                // Fallback elegante se a imagem falhar
+                <div className="w-full h-48 md:h-64 bg-gradient-to-r from-brand-600 to-brand-800 flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    <div className="text-center z-10 p-4">
+                        <div className="inline-flex p-4 rounded-full bg-white/10 backdrop-blur-sm mb-4">
+                            <Book className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-white font-bold text-xl opacity-90">{lesson.title}</h3>
+                    </div>
+                </div>
+            )}
+
+            <div className="p-8 md:p-12">
+                {parseMarkdown(lesson.content.explanation)}
+            </div>
         </div>
 
         {/* Blocos Estratégicos */}
-        <div className="grid gap-8 mb-16">
+        <div className="grid gap-10 mb-16">
           
           {/* Alerta de Erro Comum */}
-          <div className="relative overflow-hidden rounded-2xl border border-rose-100 dark:border-rose-900/30 bg-white dark:bg-[#1a1012] p-8 shadow-sm">
-             <div className="absolute top-0 left-0 w-1 h-full bg-rose-500"></div>
+          <div className="relative overflow-hidden rounded-3xl border border-rose-100 dark:border-rose-900/30 bg-[#FFF5F5] dark:bg-[#2C1517] p-8 md:p-10 shadow-sm">
+             <div className="absolute top-0 left-0 w-2 h-full bg-rose-500"></div>
              <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="p-3 bg-rose-50 dark:bg-rose-900/40 rounded-xl shrink-0 text-rose-600 dark:text-rose-400">
-                   <AlertTriangle className="w-6 h-6" />
+                <div className="p-4 bg-white dark:bg-rose-900/40 rounded-2xl shrink-0 text-rose-600 dark:text-rose-400 shadow-sm">
+                   <AlertTriangle className="w-8 h-8" />
                 </div>
                 <div>
-                   <h3 className="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-widest mb-2">
-                     Ponto de Atenção
+                   <h3 className="text-sm font-bold text-rose-700 dark:text-rose-400 uppercase tracking-widest mb-3">
+                     Cuidado com a Armadilha
                    </h3>
-                   <p className="text-base md:text-lg text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
+                   <p className="text-lg md:text-xl text-gray-800 dark:text-gray-100 leading-relaxed font-medium">
                      {parseInline(lesson.content.commonErrors)}
                    </p>
                 </div>
@@ -247,23 +274,23 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
           {/* Exemplos Práticos */}
           {lesson.content.examples?.length > 0 && (
-            <div className="rounded-2xl bg-white dark:bg-slate-800/20 border border-gray-200 dark:border-slate-700 p-8 shadow-sm">
-               <div className="flex items-center gap-4 mb-6 border-b border-gray-100 dark:border-gray-700 pb-4">
-                  <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg text-emerald-600 dark:text-emerald-400">
-                    <Lightbulb className="w-5 h-5" />
+            <div className="rounded-3xl bg-white dark:bg-slate-800/30 border border-gray-200 dark:border-slate-700 p-8 md:p-10 shadow-sm">
+               <div className="flex items-center gap-4 mb-8 border-b border-gray-100 dark:border-gray-700 pb-6">
+                  <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl text-emerald-600 dark:text-emerald-400">
+                    <Lightbulb className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                    Exemplos Reais
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Na Prática: Exemplos Reais
                   </h3>
                </div>
                
-               <div className="grid gap-4">
+               <div className="grid gap-6">
                  {lesson.content.examples.map((ex, i) => (
-                   <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-700/50">
+                   <div key={i} className="flex items-start gap-5 p-6 rounded-2xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-700/50 hover:border-emerald-200 dark:hover:border-emerald-900 transition-colors">
                      <div className="mt-1 shrink-0">
-                       <CheckCircle className="w-5 h-5 text-emerald-500" />
+                       <CheckCircle className="w-6 h-6 text-emerald-500" />
                      </div>
-                     <span className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                     <span className="text-gray-700 dark:text-gray-200 text-lg leading-relaxed">
                        {parseInline(ex)}
                      </span>
                    </div>
@@ -274,29 +301,29 @@ export const LessonView: React.FC<LessonViewProps> = ({
         </div>
 
         {/* Exercício */}
-        <div className="rounded-3xl bg-gray-900 dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 text-white p-8 md:p-10 shadow-xl shadow-gray-200 dark:shadow-none relative overflow-hidden mb-16">
-           <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-              <BookOpen className="w-64 h-64" />
+        <div className="rounded-[2.5rem] bg-gray-900 dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 text-white p-10 md:p-14 shadow-2xl shadow-gray-200 dark:shadow-none relative overflow-hidden mb-20 group">
+           <div className="absolute -top-10 -right-10 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none transform rotate-12">
+              <BookOpen className="w-80 h-80" />
            </div>
            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-brand-300 text-xs font-bold uppercase tracking-wider mb-6">
-                <PlayCircle className="w-3.5 h-3.5" /> Prática
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-brand-300 text-sm font-bold uppercase tracking-wider mb-8">
+                <PlayCircle className="w-4 h-4" /> Hora da Ação
               </div>
-              <h3 className="text-2xl font-bold mb-4">
-                 Sua Missão
+              <h3 className="text-3xl md:text-4xl font-bold mb-6">
+                 Sua Missão Agora
               </h3>
-              <p className="text-lg text-gray-300 leading-relaxed font-light">
+              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed font-light">
                 {parseInline(lesson.content.exercise)}
               </p>
            </div>
         </div>
 
         {/* Resumo */}
-        <div className="border-t border-gray-200 dark:border-gray-800 pt-12 mb-12">
-           <div className="flex flex-col items-center text-center max-w-3xl mx-auto bg-white dark:bg-slate-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-              <Sparkles className="w-8 h-8 text-brand-500 mb-4" />
-              <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Resumo da Aula</h3>
-              <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white leading-tight font-serif">
+        <div className="border-t border-gray-200 dark:border-gray-800 pt-16 mb-16">
+           <div className="flex flex-col items-center text-center max-w-4xl mx-auto bg-white dark:bg-slate-800/40 p-10 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm">
+              <Sparkles className="w-10 h-10 text-brand-500 mb-6" />
+              <h3 className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-6">O Grande Insight</h3>
+              <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-tight font-serif">
                 "{parseInline(lesson.content.summary)}"
               </p>
            </div>
@@ -310,33 +337,33 @@ export const LessonView: React.FC<LessonViewProps> = ({
             <button 
               onClick={onPrev}
               disabled={!onPrev}
-              className={`hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors ${!onPrev ? 'opacity-0 pointer-events-none' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800'}`}
+              className={`hidden md:flex items-center gap-2 px-6 py-4 rounded-2xl font-bold text-lg transition-colors ${!onPrev ? 'opacity-0 pointer-events-none' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800'}`}
             >
-               <ChevronLeft className="w-5 h-5" /> Anterior
+               <ChevronLeft className="w-6 h-6" /> Anterior
             </button>
 
             <button
               onClick={() => onComplete(lessonId)}
               className={`
-                flex-1 md:flex-none md:min-w-[320px] px-8 py-3.5 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl
+                flex-1 md:flex-none md:min-w-[400px] px-8 py-4 rounded-2xl font-bold text-lg md:text-xl flex items-center justify-center gap-3 transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl
                 ${isCompleted 
                   ? 'bg-emerald-600 text-white shadow-emerald-500/20 hover:bg-emerald-500' 
                   : 'bg-brand-600 text-white shadow-brand-500/20 hover:bg-brand-500'}
               `}
             >
               {isCompleted ? (
-                <>Aula Concluída <CheckCircle className="w-5 h-5" /></>
+                <>Aula Concluída <CheckCircle className="w-6 h-6" /></>
               ) : (
-                <>Concluir e Avançar <ArrowRight className="w-5 h-5" /></>
+                <>Concluir e Avançar <ArrowRight className="w-6 h-6" /></>
               )}
             </button>
 
             <button 
               onClick={onNext}
               disabled={!onNext}
-              className={`hidden md:flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-colors ${!onNext ? 'opacity-0 pointer-events-none' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800'}`}
+              className={`hidden md:flex items-center gap-2 px-6 py-4 rounded-2xl font-bold text-lg transition-colors ${!onNext ? 'opacity-0 pointer-events-none' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800'}`}
             >
-               Próxima <ChevronRight className="w-5 h-5" />
+               Próxima <ChevronRight className="w-6 h-6" />
             </button>
          </div>
       </div>

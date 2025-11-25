@@ -1,744 +1,754 @@
 
+
 import { Module } from '../types';
 
 export const COURSE_MODULES: Module[] = [
   {
-    id: 'mod1',
-    title: 'Módulo 1: Fundamentos da Riqueza',
+    id: 'mod0',
+    title: 'Módulo 0: Os primeiros passos',
     lessons: [
       {
         id: 'l1',
-        title: '1. O Jogo do Dinheiro',
-        duration: '15 min',
+        title: '1. Introdução às Finanças Pessoais',
+        duration: '10 min',
+        image: 'https://images.unsplash.com/photo-1579621970569-c70188618bd2?q=80&w=1200', // Plant growing on coins (Growth/Start)
         content: {
-          intro: "Você foi treinado para ser um bom funcionário, mas ninguém te ensinou a ser dono do seu próprio destino financeiro. O sistema foi desenhado para criar mão de obra, não detentores de capital. Hoje vamos reescrever essas regras.",
-          explanation: `### A Falha Educacional
-Passamos cerca de quinze anos na escola aprendendo a calcular a área de um triângulo isósceles ou a fórmula de Bhaskara, mas saímos do ensino médio sem saber como declarar imposto de renda, como funcionam os juros compostos ou como proteger nosso dinheiro da inflação. O sistema educacional tradicional foi desenhado durante a Revolução Industrial para formar operários qualificados e obedientes, não investidores ou empreendedores.
+          intro: "Você já se perguntou por que, independentemente de quanto ganha, o dinheiro parece nunca ser suficiente? A resposta não está na matemática, mas no comportamento. Bem-vindo à sua jornada de transformação.",
+          explanation: `### O que é Educação Financeira?
 
-O primeiro passo para a liberdade financeira é reconhecer que a responsabilidade pelo seu conhecimento financeiro é exclusivamente sua. Ninguém virá te salvar. O governo, o banco e o seu chefe têm interesses que, na maioria das vezes, são opostos aos seus. Eles lucram com a sua ignorância e dependência.
+Muitas pessoas confundem educação financeira com 'aprender a economizar café' ou 'ficar rico rápido'. Não é nada disso.
 
-### Os 3 Pilares da Soberania Financeira
-Para vencer o jogo do dinheiro não basta trabalhar duro. Você precisa dominar o que chamamos de Triângulo da Riqueza. Se um desses pilares estiver fraco, toda a estrutura desmorona.
+Educação financeira é a arte de **gerenciar recursos escassos para maximizar sua qualidade de vida** ao longo do tempo. É sobre ter opções.
 
-| Pilar | Função | Objetivo Prático |
-| --- | --- | --- |
-| Ganhar | Capacidade de gerar renda | Aumentar o valor da sua hora de trabalho e criar múltiplas fontes de receita. |
-| Cuidar | Gestão e eficiência | Gastar menos do que ganha, otimizar custos e evitar desperdícios. |
-| Multiplicar | Investimentos inteligentes | Fazer o dinheiro trabalhar para você através de juros compostos. |
+### Controle desde Cedo
 
-A maioria das pessoas foca apenas no primeiro pilar e ignora os outros dois. O resultado é gente que ganha 20 mil reais por mês, mas gasta 21 mil e vive endividada. A riqueza não é medida pelo quanto você ganha, mas pelo quanto você acumula e multiplica ao longo do tempo.
+Imagine que você está construindo uma casa. Se a fundação (seus hábitos financeiros) estiver torta, não adianta colocar um telhado de ouro (investimentos sofisticados). A casa vai cair.
 
-### O Poder do "Não"
-Dinheiro no banco não serve apenas para comprar coisas. Sua função primordial e mais nobre é comprar liberdade. Ter reservas financeiras permite que você diga não a situações degradantes. Um chefe abusivo, um relacionamento falido mantido por dependência financeira ou um cliente que desrespeita seu trabalho. Quem não tem dinheiro guardado é obrigado a dizer "sim" para tudo e vender sua dignidade por sobrevivência.`,
+Controlar receitas e despesas não é sobre privação, é sobre **direção**. Você precisa dizer ao seu dinheiro para onde ir, em vez de se perguntar para onde ele foi.
+
+### Comparativo de Cenários
+
+Veja como o gerenciamento é mais poderoso que a renda absoluta:
+
+| Cenário | Renda | Gastos | Sobra | Resultado Emocional |
+|---|---|---|---|---|
+| **❌ Sem Educação** | R$ 5.000 | R$ 5.100 | - R$ 100 | Estresse, Ansiedade, Medo |
+| **✅ Com Educação** | R$ 3.000 | R$ 2.500 | + R$ 500 | Paz, Segurança, Futuro |
+
+Observe que quem ganha menos (Cenário 2) está acumulando riqueza, enquanto quem ganha mais (Cenário 1) está destruindo patrimônio.
+
+### Os 3 Pilares Fundamentais
+
+| Pilar | Definição |
+|---|---|
+| **1. Autonomia** | Deixar de ser refém do salário do próximo mês. Você trabalha porque quer, não só porque precisa comer. |
+| **2. Segurança** | Saber que um imprevisto (carro quebrado, doença) não vai destruir sua vida. Você tem colchão financeiro. |
+| **3. Liberdade** | Poder fazer escolhas baseadas em propósito, não em sobrevivência. Viajar, trocar de carreira, ajudar família. |`,
           examples: [
-            "Mentalidade de Pobre: Recebe o salário, paga as contas, gasta o que sobra com lazer e reclama que não tem dinheiro para investir.",
-            "Mentalidade de Rico: Recebe o salário, separa a parte do investimento primeiro (paga-se primeiro) e ajusta o padrão de vida para caber no restante."
+            "Sem educação financeira: Ganha R$ 5.000, gasta R$ 5.100, vive estressado e sem margem.",
+            "Com educação financeira: Ganha R$ 3.000, vive com R$ 2.500, investe R$ 500 e dorme tranquilo."
           ],
-          commonErrors: "Acreditar que precisa 'ter dinheiro sobrando' para começar a organizar as finanças. A verdade é o oposto: você só terá dinheiro sobrando quando começar a organizar, mesmo que seja com pouco.",
-          summary: "O dinheiro é um excelente servo, mas um péssimo mestre. Se você não assumir o controle dele hoje, ele controlará suas decisões pelo resto da vida.",
-          exercise: "Pegue um papel agora. Liste 3 situações recentes nos últimos anos onde a falta de dinheiro te obrigou a aceitar algo que você queria recusar."
+          commonErrors: "Achar que precisa ganhar muito para começar a organizar. Pelo contrário: se você não organiza o pouco, o muito só vai amplificar sua bagunça.",
+          summary: "Finanças pessoais são 20% conhecimento técnico e 80% comportamento. O objetivo deste curso é mudar o seu comportamento.",
+          exercise: "Escreva em um papel: O que a liberdade financeira permitiria que você fizesse hoje que você não pode fazer?"
         }
       },
       {
         id: 'l2',
-        title: '2. Mentalidade de Crescimento',
-        duration: '18 min',
+        title: '2. Mentalidade Financeira',
+        duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1475518117521-7c46087905e5?q=80&w=1200', // Lightbulb / Idea / Mindset
         content: {
-          intro: "Seu bolso nunca crescerá mais que sua mente. A riqueza é criada primeiro internamente, através de crenças e comportamento, para só depois se manifestar na conta bancária.",
-          explanation: `### Crenças Limitantes e Dinheiro
-Muitos de nós fomos programados com ideias nocivas sobre dinheiro desde a infância. Frases como "dinheiro é sujo", "rico é ganancioso" ou "dinheiro não traz felicidade" instalam um bloqueio subconsciente. Se o seu cérebro associa riqueza a algo negativo ou imoral, ele trabalhará ativamente para sabotar qualquer tentativa sua de enriquecer.
+          intro: "O maior obstáculo entre você e a riqueza não é o governo, o seu chefe ou a economia. É o espelho. Suas crenças sobre dinheiro ditam sua conta bancária.",
+          explanation: `### Crenças Limitantes
 
-É preciso ressignificar o dinheiro. Ele é neutro. Ele apenas potencializa quem você já é. Se você é generoso, o dinheiro permitirá que você ajude muito mais pessoas. Se você é mesquinho, o dinheiro apenas tornará sua mesquinhez mais visível. Dinheiro é uma ferramenta de liberdade e ampliação do bem.
+Fomos programados desde crianças com frases como "dinheiro é sujo", "ricos são gananciosos" ou "dinheiro não nasce em árvore". Essas frases criam bloqueios mentais.
 
-### Ativos vs Passivos
-Esta é a distinção técnica mais importante que você aprenderá neste curso. A confusão entre estes dois conceitos é o que mantém a classe média endividada, mesmo ganhando bem.
+### Mentalidade de Escassez vs. Abundância
 
-| Tipo | Definição Simples | Exemplos Reais |
-| --- | --- | --- |
-| Ativo | Tudo aquilo que coloca dinheiro no seu bolso. | Ações, Imóveis alugados, Tesouro Direto, Negócios próprios. |
-| Passivo | Tudo aquilo que tira dinheiro do seu bolso. | Carro, Casa própria (manutenção), Assinaturas não usadas. |
+Para mudar sua vida financeira, você precisa substituir o pensamento de "Eu não posso pagar isso" por **"Como eu posso pagar isso?"**. Veja as diferenças fundamentais:
 
-A regra do jogo é simples: pessoas ricas focam obsessivamente em adquirir ativos. A classe média compra passivos achando que são ativos (como financiar um carro de luxo achando que é um investimento), gerando despesas recorrentes que corroem a renda e aprisionam a pessoa no emprego.`,
+| Aspecto | ❌ Mentalidade de Escassez | ✅ Mentalidade de Abundância |
+|---|---|---|
+| **Foco Principal** | Custo das coisas | Valor e retorno |
+| **Visão de Mundo** | Para um ganhar, outro perde | Riqueza se cria (todos ganham) |
+| **Ação** | Guarda dinheiro por medo | Investe para multiplicar |
+| **Reação ao Sucesso** | Critica quem tem sucesso | Admira e aprende com eles |
+| **Problemas** | Reclama e culpa os outros | Busca soluções criativas |
+
+A primeira trava seu cérebro; a segunda força ele a buscar soluções criativas.`,
           examples: [
-            "Passivo: Comprar um iPhone de última geração parcelado em 12x. Ele perde valor assim que sai da loja e gera uma dívida mensal.",
-            "Ativo: Pegar o mesmo valor e comprar cotas de Fundos Imobiliários. Todo mês, esse dinheiro gera uma renda que pode pagar a conta do seu celular atual."
+            "Pessoa com mentalidade pobre: Recebe um aumento e imediatamente troca de carro para mostrar aos outros.",
+            "Pessoa com mentalidade rica: Recebe um aumento e investe a diferença para comprar liberdade futura."
           ],
-          commonErrors: "Terceirizar a culpa. Culpar o governo, a economia, a família ou o chefe pela situação financeira. Enquanto você se vir como vítima, não terá poder para mudar sua realidade.",
-          summary: "Enriqueça sua mente e seu bolso não terá escolha a não ser acompanhar esse crescimento. Foque em comprar ativos, não aparências.",
-          exercise: "Faça um inventário da sua casa. Identifique pelo menos 3 coisas caras que você comprou achando que eram investimentos, mas que hoje apenas geram despesas ou perdem valor."
+          commonErrors: "Culpar fatores externos. Enquanto você achar que é pobre por culpa do sistema, você entrega seu poder de mudança para o sistema.",
+          summary: "Enriqueça sua mente e seu bolso não terá escolha a não ser acompanhar.",
+          exercise: "Identifique uma crença negativa que você tem sobre dinheiro (ex: 'Investir é difícil') e escreva uma nova verdade para substituí-la."
         }
       },
       {
         id: 'l3',
-        title: '3. Diagnóstico Financeiro',
+        title: '3. Autoconhecimento Financeiro (Selfie)',
         duration: '20 min',
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200', // Calculator / Audit / Numbers
         content: {
-          intro: "Você não pode curar o que não diagnosticou. Hoje vamos acender a luz no quarto escuro das suas finanças e encarar os números frios.",
-          explanation: `### O Raio-X Financeiro
-A maioria das pessoas vive no "achismo" financeiro. Acham que gastam X, mas na verdade gastam 2X. Para entender sua situação real, precisamos de dados, não de sentimentos. A intuição falha, os números não. Vamos dividir sua vida financeira em quatro blocos claros para análise.
+          intro: "Para chegar a algum lugar, o GPS precisa de dois pontos: onde você quer ir e onde você está agora. Hoje vamos descobrir onde você está.",
+          explanation: `### A Selfie Financeira
 
-1. Receita Líquida: O que realmente cai na sua conta após impostos. Não conte com o bruto, conte com o disponível.
-2. Despesas Fixas: Moradia, luz, internet, escola. Custos de sobrevivência que acontecem todo mês.
-3. Despesas Variáveis: Lazer, iFood, Uber, compras impulsivas. É aqui que o dinheiro costuma vazar.
-4. Dívidas: O custo do passado. Parcelas de cartão, empréstimos e financiamentos.
+Você precisa tirar uma foto crua e realista da sua situação. Sem filtros. Isso dói, mas cura.
 
-### O Cálculo do Patrimônio Líquido
-A medida real da sua riqueza não é seu salário, mas seu Patrimônio Líquido. Se você ganha 30 mil reais mas gasta tudo, você é pobre com alto padrão de vida. O Patrimônio Líquido é o resultado de tudo o que você tem (Ativos) menos tudo o que você deve (Passivos).
+A maioria das pessoas vive no "achismo": acha que sabe quanto gasta, mas subestima os valores em 30% a 50%.
 
-A fórmula é simples: Ativos menos Passivos é igual a sua Riqueza Real. Se o resultado for negativo, significa que você está tecnicamente quebrado. Reconhecer isso dói, mas é a dor da cura necessária para começar a mudança.`,
+### Os 3 Perfis Financeiros
+
+Ao fazer sua análise, você se encontrará em um destes cenários. Identifique o seu:
+
+| Perfil | Comportamento | Sintoma Clássico | Diagnóstico |
+|---|---|---|---|
+| **1. O Endividado** | Gasta MAIS do que ganha | Usa cheque especial e rotativo | **Emergência:** Estancar a sangria já. |
+| **2. O Equilibrado** | Gasta IGUAL ao que ganha | Sem dívidas, mas sem reservas | **Risco:** Um imprevisto te quebra. |
+| **3. O Investidor** | Gasta MENOS do que ganha | Tem reserva e aplicações | **Liberdade:** O dinheiro trabalha. |
+
+O objetivo deste módulo não é julgar, é diagnosticar. Você não pode curar o que não diagnosticou.`,
           examples: [
-            "Cenário de Risco: O profissional que ganha bem, anda de carro importado financiado, mora em bairro nobre de aluguel e não tem reserva. Qualquer demissão o leva à falência em 30 dias.",
-            "Cenário Seguro: Alguém que ganha menos, mas tem casa simples quitada, carro popular e investimentos que cobrem 6 meses de custo de vida."
+            "O falso rico: Ganha 20 mil, gasta 22 mil. Parece rico, mas é pobre de patrimônio.",
+            "O milionário invisível: Ganha 10 mil, vive com 5 mil, investe 5 mil há 15 anos. Ninguém nota, mas ele é livre."
           ],
-          commonErrors: "Fazer estimativas de cabeça. Achar que gasta 800 reais de mercado quando, na realidade, gasta 1.500 porque vai picado várias vezes na semana. Use o extrato bancário dos últimos 3 meses.",
-          summary: "O diagnóstico pode ser assustador, mas ele te dá o mapa. Sem saber onde você está, nenhum GPS consegue te levar para onde você quer ir.",
-          exercise: "Crie sua Planilha da Verdade hoje. Liste todas as suas dívidas com: Valor Total, Valor da Parcela e Taxa de Juros Mensal."
+          commonErrors: "Ignorar as pequenas despesas. O café, o Uber, a assinatura que você não usa. Eles são os cupins da sua riqueza.",
+          summary: "Os números não mentem, mas eles podem te libertar se você tiver coragem de encará-los.",
+          exercise: "Abra seu extrato bancário dos últimos 30 dias. Some TUDO. O valor total gasto foi maior ou menor do que você imaginava?"
         }
-      },
+      }
+    ]
+  },
+  {
+    id: 'mod1',
+    title: 'Módulo 1: Traça os teus objetivos',
+    lessons: [
       {
         id: 'l4',
-        title: '4. A Regra de Ouro',
+        title: '4. Objetivos de Curto, Médio e Longo Prazo',
         duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1501139083538-0139583c61ee?q=80&w=1200', // Hourglass / Time / Planning
         content: {
-          intro: "Existe uma lei universal na física financeira: a Lei do Gap. Se você violar essa lei, vai quebrar. Se respeitar, vai prosperar inevitavelmente.",
-          explanation: `### O Gap Financeiro
-A riqueza não provém do valor absoluto que você ganha, mas da diferença (o Gap) entre o que entra e o que sai. Se você ganha R$ 5.000,00 e gasta R$ 5.000,00, você está correndo parado. Se ganha R$ 20.000,00 e gasta R$ 21.000,00, está cavando um buraco.
+          intro: "Dinheiro sem destino vira paisagem. Se você não der um nome e um prazo para cada centavo, ele vai desaparecer com coisas triviais.",
+          explanation: `### A Linha do Tempo Financeira
 
-O segredo não é apenas "ganhar mais", é manter o custo de vida controlado enquanto a renda sobe. Se você recebe um aumento, sua tendência natural é aumentar o padrão de vida. É preciso lutar contra isso.
+Nossa mente tem dificuldade de processar o futuro distante. Por isso, precisamos quebrar nossos sonhos em etapas tangíveis e alocar o dinheiro corretamente para cada uma.
 
-### Inflação de Estilo de Vida
-Este é o erro número um que impede a prosperidade da classe média. Ao ser promovido, a pessoa imediatamente troca o carro, muda para um apartamento maior ou começa a frequentar restaurantes mais caros. Isso a mantém na Corrida dos Ratos: correndo cada vez mais rápido apenas para permanecer no mesmo lugar financeiro, mas agora com boletos mais caros e maior estresse.
+| Tipo de Prazo | Tempo Estimado | Exemplos Reais | Onde Investir (Risco) |
+|---|---|---|---|
+| **Curto Prazo** | Até 1 ano | Férias, Reserva, Celular | **Baixo:** Tesouro Selic, CDB Liq. Diária |
+| **Médio Prazo** | 1 a 5 anos | Carro, Casamento, Pós | **Médio:** LCI, LCA, CDB Prefixado |
+| **Longo Prazo** | +5 anos | Aposentadoria, Faculdade Filhos | **Alto:** Ações, FIIs, Tesouro IPCA+ |
 
-### Viva um Degrau Abaixo
-A regra prática é viver um degrau abaixo da sua capacidade. Se você pode pagar um aluguel de R$ 3.000, more num de R$ 2.000. Se pode ter um carro de R$ 100 mil, tenha um de R$ 60 mil. Essa diferença é o que constrói sua liberdade.`,
+Observe que para metas longas, podemos correr mais riscos para buscar maior retorno. Para metas curtas, a segurança é prioridade.`,
           examples: [
-            "Errado: Receber um aumento de R$ 1.000 e assumir uma nova parcela de R$ 1.000.",
-            "Certo: Usar 100% do aumento salarial para aumentar o aporte mensal nos investimentos, mantendo o padrão de vida anterior."
+            "Curto: Juntar R$ 3.000 até dezembro para o Natal.",
+            "Longo: Acumular R$ 1 milhão em 20 anos para gerar uma renda passiva de R$ 8.000 mensais."
           ],
-          commonErrors: "Achar que sobrar pouco dinheiro não adianta e por isso gastar tudo. 'Ah, só sobrou 50 reais, vou pedir uma pizza'. Juros compostos funcionam com qualquer valor, o hábito é mais importante que a quantia inicial.",
-          summary: "Não importa o tamanho do seu salário, importa o tamanho da sua sobra. A riqueza reside na margem.",
-          exercise: "Calcule sua margem atual: (Receita - Despesas) / Receita. Se o resultado for menor que 10%, você está em zona de perigo e precisa cortar gastos urgentemente."
+          commonErrors: "Usar dinheiro de curto prazo (reserva) para objetivos de longo prazo (bolsa de valores) e vice-versa. Isso gera perdas e frustração.",
+          summary: "Quem não sabe o que quer, compra o que não precisa.",
+          exercise: "Liste 3 objetivos financeiros: um para realizar em 6 meses, um em 3 anos e um em 10 anos."
         }
       },
       {
         id: 'l5',
-        title: '5. Armadilhas do Sistema',
+        title: '5. Definindo Objetivos SMART',
         duration: '18 min',
+        image: 'https://images.unsplash.com/photo-1533227297135-345be19655d4?q=80&w=1200', // Dartboard / Bullseye / Focus
         content: {
-          intro: "O banco não é seu amigo. O gerente do banco não é seu consultor financeiro, ele é um vendedor com metas para bater. Aprenda a se defender.",
-          explanation: `### Conflito de Interesses
-O sistema financeiro foi desenhado para transferir dinheiro de quem tem pressa para quem tem paciência. Gerentes de banco possuem metas de venda de produtos que, na maioria das vezes, são péssimos para o cliente e ótimos para o banco. Você precisa estar ciente de que a instituição financeira visa o lucro dela, não o seu.
+          intro: "'Quero ser rico' não é uma meta, é um delírio. Para transformar sonhos em planos, precisamos de engenharia reversa.",
+          explanation: `### O Método SMART
 
-### Produtos Tóxicos Comuns
-Você precisa saber identificar e recusar produtos que drenam seu patrimônio silenciosamente.
+Uma meta financeira precisa passar por 5 filtros para funcionar. Se falhar em um, provavelmente não será alcançada.
 
-| Produto | O que o gerente diz | A realidade |
-| --- | --- | --- |
-| Título de Capitalização | "É uma forma forçada de guardar dinheiro e concorrer a prêmios." | É um empréstimo gratuito que você faz para o banco. O rendimento perde feio para a inflação. |
-| Cheque Especial | "É um dinheiro extra para emergências." | É um dos juros mais caros do mundo. Usar isso é suicídio financeiro. |
-| Consórcio | "É um investimento seguro para comprar bens." | Tem taxas de administração altas e você depende da sorte ou lance para ter o bem. |
+**S - Specific (Específico):**
+O que exatamente você quer? "Quero um carro" é vago. "Quero um Honda Civic 2020 Prata" é específico.
 
-### O Custo da Antecipação
-A sociedade de consumo te vende a ideia de que você merece tudo "agora". Comprar parcelado é, na essência, antecipar o prazer e prolongar a dor. Você paga mais caro (juros embutidos) por algo que irá desvalorizar, comprometendo sua renda futura com decisões passadas.`,
+**M - Measurable (Mensurável):**
+Quanto custa? Você precisa de um número exato para saber quando chegou lá.
+
+**A - Achievable (Atingível):**
+Cabe no seu bolso hoje? A meta deve ser desafiadora, mas não impossível.
+
+**R - Relevant (Relevante):**
+Por que isso importa para você? Se não houver emoção ligada à meta, você desiste no primeiro obstáculo.
+
+**T - Time-bound (Temporal):**
+Quando você vai realizar? Uma meta sem data é apenas um sonho.
+
+Agora você não tem mais um sonho vago. Você tem um boleto de R$ 1.000/mês consigo mesmo até 2025. Isso é um plano.`,
           examples: [
-            "Carro Zero: Perde cerca de 15% a 20% do valor no momento em que sai da concessionária. É um triturador de dinheiro.",
-            "Cartão de Loja: Oferece 10% de desconto na primeira compra para te prender em um cartão com juros rotativos de 400% ao ano."
+            "Meta Ruim: Quero economizar dinheiro.",
+            "Meta SMART: Quero juntar R$ 5.000 (M) para trocar de notebook (S) até dezembro deste ano (T), guardando R$ 500 por mês (A) para melhorar meu trabalho (R)."
           ],
-          commonErrors: "Aceitar 'cafézinho' com o gerente e sair com um seguro de vida ou previdência privada ruim. Lembre-se: se o banco está te ligando para oferecer, é porque é bom para eles.",
-          summary: "Seja cético. Ninguém cuida do seu dinheiro melhor do que você. Aprenda a dizer 'não' para o gerente sem culpa.",
-          exercise: "Abra o aplicativo do seu banco agora. Verifique se você está pagando 'Cesta de Serviços' (tarifa de manutenção). Por lei, você tem direito a uma conta de Serviços Essenciais gratuita. Cancele a tarifa."
+          commonErrors: "Criar metas impossíveis (juntar 1 milhão em um ano ganhando pouco) e desistir no primeiro mês por frustração.",
+          summary: "Transforme intenções em números e datas. O universo gosta de especificidade.",
+          exercise: "Pegue seu objetivo de Médio Prazo da aula anterior e reescreva-o usando o formato SMART completo."
         }
       }
     ]
   },
   {
     id: 'mod2',
-    title: 'Módulo 2: Domando o Orçamento',
+    title: 'Módulo 2: O teu património atual',
     lessons: [
       {
         id: 'l6',
-        title: '6. O Método 50/30/20',
-        duration: '16 min',
+        title: '6. Selfie Financeira (Diagnóstico Inicial)',
+        duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200', // Analyzing Receipt / Pen / Audit
         content: {
-          intro: "Orçamento não é sobre privação, é sobre direção. Se você não disser para onde seu dinheiro deve ir, ele vai desaparecer sem se despedir.",
-          explanation: `### A Estrutura Ideal
-Muitas pessoas falham em fazer orçamento porque tentam categorizar cada bala que compram. Isso é chato e insustentável. O método 50/30/20 simplifica tudo dividindo sua renda líquida em apenas três grandes blocos.
+          intro: "Você não começa uma dieta sem se pesar. Nas finanças, a balança é o seu fluxo de caixa e patrimônio.",
+          explanation: `### A Foto do Momento
 
-1. 50% para Necessidades (Essencial): Aqui entra tudo que é vital para sua sobrevivência e trabalho. Aluguel ou financiamento, condomínio, luz, água, mercado básico, transporte, saúde, educação. Se você perder o emprego, é esse valor que você precisa para não morar na rua.
+Vamos aprofundar o exercício da aula 3. Agora vamos categorizar. Você precisa saber exatamente quanto entra (Renda Líquida) e quanto sai.
 
-2. 30% para Desejos (Estilo de Vida): A vida não é só pagar boleto. Aqui entra o lazer, jantar fora, streaming, viagens, hobbies, compras de roupas que não são essenciais. É o dinheiro da diversão. Se você cortar isso a zero, vai desistir do plano em dois meses por exaustão.
+O grande segredo não é o quanto você ganha, mas o **GAP (a diferença)** entre o que entra e o que sai.
 
-3. 20% para Liberdade (Prioridade Financeira): Este é o dinheiro do seu futuro. Serve para quitar dívidas (se tiver) ou para investir (se estiver no azul). Esse dinheiro deve sair da conta assim que o salário cai. Não é o que sobra, é prioridade.
+Se você ganha R$ 10.000 e gasta R$ 10.000, você está correndo na esteira: muito esforço, nenhum deslocamento.
 
-### Ajuste de Rota
-Se sua realidade hoje é 70/30/0, você tem um problema claro. Você precisará tomar decisões difíceis: mudar para uma casa mais barata, vender o carro ou aumentar drasticamente a renda extra para reequilibrar a balança.`,
+Se você ganha R$ 3.000 e gasta R$ 2.000, você está construindo riqueza.
+
+Visualize seu objetivo e entenda que cada real economizado hoje é um tijolo nessa construção.`,
           examples: [
-            "Renda de R$ 4.000: R$ 2.000 para contas fixas, R$ 1.200 para lazer/compras, R$ 800 para investir.",
-            "Automatização: Programe uma transferência automática para a corretora no dia do pagamento. O que os olhos não veem, o coração não sente (e você não gasta)."
+            "Renda Extra não é aumento de padrão de vida. É acelerador de objetivos.",
+            "Se entrou R$ 500 extras, isso deve ir para o seu Fundo de Liberdade, não para o iFood."
           ],
-          commonErrors: "Tentar investir 'o que sobrar' no fim do mês. A Lei de Parkinson diz que os gastos sempre se expandem para ocupar toda a renda disponível. Nunca sobra. Pague-se primeiro.",
-          summary: "Defina um teto para seus gastos e um piso para seus investimentos. Essa é a fórmula matemática da consistência.",
-          exercise: "Faça as contas agora. Distribua seu salário atual nas categorias 50/30/20 e veja onde está o maior desequilíbrio."
+          commonErrors: "Esquecer de contar os impostos e descontos do salário bruto. Trabalhe sempre com o valor Líquido (o que cai na conta).",
+          summary: "Seu diagnóstico atual não define seu futuro, mas define seu ponto de partida.",
+          exercise: "Calcule sua 'Taxa de Poupança' atual: (Dinheiro Guardado / Renda Líquida) * 100. Se for zero, temos trabalho a fazer."
         }
       },
       {
         id: 'l7',
-        title: '7. Os Ladrões Invisíveis',
-        duration: '12 min',
+        title: '7. Patrimônio Líquido',
+        duration: '20 min',
+        image: 'https://images.unsplash.com/photo-1611974765270-ca1258ef3612?q=80&w=1200', // Balance scale / Justice / Weight
         content: {
-          intro: "Não é o elefante que pica, são os pernilongos. Pequenos gastos recorrentes e despercebidos drenam mais riqueza ao longo de uma década do que grandes compras esporádicas.",
-          explanation: `### O Efeito Latte (Gastos Formiguinha)
-Um gasto de R$ 15,00 por dia em lanche ou café parece inofensivo. Mas R$ 15 vezes 30 dias dá R$ 450,00 por mês. Em um ano, são R$ 5.400,00. Investido a juros compostos por 10 anos, isso viraria um carro popular. Não estou dizendo para você nunca tomar café, mas para ter consciência de que esses gastos não são invisíveis e impactam seu futuro.
+          intro: "Riqueza não é salário. Riqueza é Patrimônio. É o que sobra se você vender tudo o que tem e pagar tudo o que deve.",
+          explanation: `### A Fórmula da Riqueza
 
-### Assinaturas Fantasmas
-Vivemos a era da subscrição. Netflix, Amazon, Spotify, Academia, Clube de Vinho, App de Meditação. Muitas vezes assinamos, usamos por um mês e esquecemos de cancelar. São débitos automáticos que comem 10%, 20% da sua verba de lazer sem você perceber.
+**Patrimônio Líquido = Ativos - Passivos**
 
-### Tarifas Bancárias e Anuidades
-Pagar anuidade de cartão de crédito hoje em dia é um atestado de desinformação. Com a concorrência das Fintechs, quase todos os grandes bancos oferecem isenção se você pedir ou gastar um mínimo. Pagar R$ 400 de anuidade é jogar dinheiro no lixo.`,
+Esta é a conta mais importante da sua vida financeira. Aprenda a diferenciar o que coloca dinheiro no seu bolso do que tira.
+
+| Categoria | Descrição | Exemplo Prático | Impacto na Riqueza |
+|---|---|---|---|
+| **🟢 Ativos** | Colocam dinheiro no bolso | Ações, Imóveis, Investimentos | 📈 Aumenta |
+| **🔴 Passivos** | Tiram dinheiro do bolso | Financiamentos, Dívidas, Carro | 📉 Diminui |
+
+Se o resultado da subtração for negativo, você está tecnicamente "quebrado", mesmo que tenha um bom salário. O objetivo do jogo é aumentar a coluna dos Ativos e diminuir a dos Passivos.`,
           examples: [
-            "Uber para distâncias curtas: Substituir por caminhada gera economia e saúde.",
-            "Delivery diário: Preparar marmitas semanais (meal prep) pode reduzir seu custo de alimentação em até 60%."
+            "João tem um apto de R$ 500 mil, mas deve R$ 450 mil ao banco. Patrimônio real dele no imóvel: R$ 50 mil.",
+            "Maria tem R$ 100 mil investidos e zero dívidas. O patrimônio da Maria é o dobro do de João, embora ele more numa casa 'melhor'."
           ],
-          commonErrors: "Achar que cortar o cafezinho vai te deixar milionário. O corte de gastos serve para criar disciplina e margem, mas o que enriquece de verdade é aumentar a renda e investir bem.",
-          summary: "Estanque a sangria. Um balde furado nunca enche, não importa quanta água (dinheiro) você coloque nele.",
-          exercise: "Pegue sua fatura do cartão. Identifique e cancele imediatamente pelo menos 2 assinaturas ou serviços recorrentes que você não usa com frequência."
+          commonErrors: "Confundir limite de cartão de crédito com ativo. Limite é dívida potencial, não dinheiro seu.",
+          summary: "Pare de focar em parecer rico e comece a focar em ser rico (ter patrimônio positivo).",
+          exercise: "Liste todos os seus bens e todas as suas dívidas em uma folha dividida ao meio. Faça a subtração."
         }
       },
       {
         id: 'l8',
-        title: '8. Ferramentas de Controle',
-        duration: '14 min',
+        title: '8. Registro de Receitas e Despesas',
+        duration: '18 min',
+        image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200', // Writing in notebook / Meeting
         content: {
-          intro: "A melhor ferramenta não é a mais complexa, é a que você usa. A complexidade é inimiga da execução. Vamos escolher o método que funciona para você.",
-          explanation: `### Escolha sua Arma
-Não existe um "melhor app". Existe o que se adapta à sua rotina e personalidade.
+          intro: "Pequenos vazamentos afundam grandes navios. Se você não sabe para onde vão os centavos, nunca terá milhões.",
+          explanation: `### Rastreador de Dinheiro
 
-* Aplicativos Automáticos: Conectam na conta e puxam gastos sozinhos. Exigem pouco esforço, mas podem errar a categoria. Ideal para quem tem pouco tempo.
-* Planilha Excel/Google: Personalização total. Você vê os números grandes na tela. Exige disciplina para abrir o PC e lançar. Ideal para analíticos.
-* Caderno / Bloco de Notas: Consciência tátil. O ato de escrever dói e fixa a memória do gasto. Ideal para quem está endividado e precisa sentir a "dor" do gasto para parar de comprar.
+Para estancar a sangria financeira, você precisa registrar tudo. Não importa a ferramenta (caderno, Excel, app), importa o hábito.
 
-### A Rotina Semanal
-Não deixe para organizar as finanças uma vez por mês. Você vai esquecer o que comprou, vai desanimar com o tamanho da lista e vai desistir. Crie uma rotina sagrada: toda sexta-feira ou domingo, tire 15 minutos para categorizar a semana e ver se está dentro da meta.`,
+**Receitas:**
+Salário, renda extra, aluguéis recebidos, dividendos. (Registre quando CAI na conta, não quando você acha que vai receber).
+
+**Despesas:**
+Classifique em categorias macro: Habitação, Alimentação, Transporte, Lazer, Saúde.
+
+O registro revela a verdade. Você descobrirá que gasta R$ 600 em Uber achando que gastava R$ 200. Esse choque de realidade é necessário para mudar o comportamento.`,
           examples: [
-            "Simplificação: Não crie categorias como 'Pão', 'Leite', 'Carne'. Use categorias macro: 'Mercado', 'Lazer', 'Transporte'.",
-            "Centralização: Tente concentrar gastos no Cartão de Crédito (se tiver controle) pois ele gera um extrato único categorizado, facilitando o controle."
+            "O 'Cafezinho': R$ 10 por dia parece nada. No ano, são R$ 3.650. Investido em 20 anos, vira um carro popular.",
+            "A 'Pizza de Sexta': R$ 80 por semana = R$ 4.160 por ano. Vale a pena ou prefere viajar nas férias?"
           ],
-          commonErrors: "Baixar o app mais completo, configurar tudo e parar de usar na primeira semana. Comece simples. Um controle imperfeito que é feito é melhor que um perfeito que não existe.",
-          summary: "O que não é medido não é gerenciado. Se você não sabe para onde seu dinheiro vai, nunca conseguirá redirecioná-lo para seus sonhos.",
-          exercise: "Escolha uma ferramenta HOJE (App, Planilha ou Caderno) e registre todos os gastos de ontem e hoje. Só comece."
+          commonErrors: "Registrar só as contas grandes e ignorar os gastos 'picados' do dia a dia. São eles que quebram o orçamento.",
+          summary: "Você não pode gerenciar o que não mede. O registro é a luz que ilumina o quarto escuro das suas finanças.",
+          exercise: "Durante os próximos 7 dias, anote absolutamente tudo que você comprar, até uma bala. Analise no fim da semana."
         }
       },
       {
         id: 'l9',
-        title: '9. Metas SMART',
+        title: '9. Planejamento Anual de Despesas',
         duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1506784335131-d6959de13a5a?q=80&w=1200', // Calendar / Planning / Dates
         content: {
-          intro: "Sonho sem prazo é apenas delírio. 'Quero ser rico' não é uma meta, é um desejo vago. Vamos transformar vontades em planos de batalha.",
-          explanation: `### A Metodologia SMART
-Para que seu cérebro leve uma meta a sério e trabalhe por ela, é preciso sair do abstrato e ir para o concreto.
+          intro: "Janeiro nunca deveria ser uma surpresa. O IPVA vence todo ano na mesma data. O Natal é sempre em dezembro. Por que agimos como se fossem imprevistos?",
+          explanation: `### O Efeito Sazonal
 
-S (Específica): O que exatamente você quer? (Não "um carro", mas "um Honda Civic 2020 preto").
-M (Mensurável): Quanto custa? (R$ 80.000).
-A (Atingível): É possível com sua renda atual ou projetada?
-R (Relevante): Por que isso importa? Vai melhorar sua vida de verdade?
-T (Temporal): Quando? (Até dezembro de 2025).
+Muitas dívidas surgem porque esquecemos das despesas que não são mensais, mas são certas.
 
-### Engenharia Reversa
-Quando você define o valor e o prazo, a meta se transforma em um boleto mensal. Se você quer uma viagem de R$ 12.000 em 12 meses, a conta é simples: R$ 1.000 por mês. Agora você não tem mais um "sonho", você tem uma conta de R$ 1.000 para pagar todo mês para o seu "Eu do Futuro". Se não couber no orçamento, você ajusta o prazo ou a meta, mas agora com base na realidade.`,
+*   **Janeiro/Fevereiro:** IPVA, IPTU, Matrícula Escolar, Material Escolar.
+*   **Datas Comemorativas:** Dia das Mães, Pais, Namorados, Crianças, Natal.
+*   **Aniversários:** Presentes para família e amigos.
+
+### A Técnica do Rateio
+
+Some todas essas despesas anuais. Vamos supor que dê R$ 6.000 no ano.
+
+Divida esse valor por 12 meses (R$ 500).
+
+Você deve guardar R$ 500 todo mês numa 'Conta de Despesas Anuais'. Quando o IPVA chegar em janeiro, o dinheiro já estará lá e você pagará à vista com desconto, sem sufoco.`,
           examples: [
-            "Meta Ruim: Quero limpar meu nome algum dia.",
-            "Meta Boa (SMART): Quero quitar a dívida de R$ 4.000 do Santander até dia 20 de dezembro, economizando R$ 400 por mês cortando o iFood."
+            "Pagando IPVA: Quem planeja paga à vista com 3% a 5% de desconto.",
+            "Quem não planeja: Parcela e perde o desconto (ou paga juros)."
           ],
-          commonErrors: "Estabelecer metas irreais, como juntar 1 milhão em um ano ganhando um salário mínimo. Isso gera frustração e desistência. Comece com metas pequenas para ganhar tração.",
-          summary: "Dê um nome, um valor e uma data para seu dinheiro. Dinheiro sem destino definido acaba sendo gasto com trivialidades que você nem lembra depois.",
-          exercise: "Defina sua meta principal para este ano. Escreva seguindo os 5 critérios SMART e cole na porta da geladeira ou no espelho do banheiro."
+          commonErrors: "Usar o 13º salário para pagar dívidas feitas durante o ano. O ideal é usar o 13º para alavancar investimentos ou pagar as despesas de janeiro à vista.",
+          summary: "Transforme despesas anuais em parcelas mensais que você paga para si mesmo.",
+          exercise: "Pegue um calendário. Marque todas as despesas grandes previsíveis dos próximos 12 meses e estime o valor total."
         }
       },
       {
         id: 'l10',
-        title: '10. O Fundo da Paz (Reserva)',
-        duration: '18 min',
+        title: '10. Orçamento Mensal',
+        duration: '22 min',
+        image: 'https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=1200', // Coins stacked / Savings / Money
         content: {
-          intro: "Esqueça o termo 'Reserva de Emergência'. Emergência atrai problema. Vamos chamar de 'Fundo da Paz'. É o dinheiro que te permite dormir tranquilo quando o mundo lá fora está pegando fogo.",
-          explanation: `### O Colchão de Segurança
-Antes de pensar em investir em ações, criptomoedas ou trocar de carro, você tem uma obrigação: ter liquidez. Imprevistos NÃO são imprevistos, eles são certezas estatísticas. O carro VAI quebrar, alguém VAI ficar doente, o dente VAI doer ou uma demissão VAI acontecer. O Fundo da Paz serve para que esses eventos sejam apenas inconvenientes, não tragédias financeiras.
+          intro: "Orçamento não é uma camisa de força para te prender, é um plano para te libertar de culpa.",
+          explanation: `### A Regra 50/30/20
 
-### Quanto guardar?
-Para trabalhadores CLT ou Funcionários Públicos, recomendamos 6 meses do seu custo de vida mensal. Para Autônomos ou Empreendedores, o ideal são 12 meses, pois a renda oscila mais.
+Uma das formas mais eficazes de dividir o orçamento é o método dos potes percentuais. Veja como dividir sua renda líquida:
 
-### Onde investir esse dinheiro?
-A regra de ouro aqui é que rentabilidade não importa. O que importa é SEGURANÇA e LIQUIDEZ (poder sacar na hora). O Tesouro Selic ou CDBs de Liquidez Diária de grandes bancos são as melhores opções. A Poupança perde para a inflação, e Ações ou Fundos Imobiliários oscilam e não servem para reserva.`,
+| Pote | Porcentagem | O que entra aqui? | Função |
+|---|---|---|---|
+| **🟢 Necessidades** | 50% | Aluguel, Luz, Comida, Saúde | Sobrevivência Básica |
+| **🟡 Desejos** | 30% | Lazer, Hobbies, Viagens, Roupas | Estilo de Vida |
+| **🔵 Futuro** | 20% | Reserva, Aposentadoria, Dívidas | Liberdade Financeira |
+
+Se suas necessidades consomem 80% da sua renda, você tem um problema estrutural: ou ganha pouco ou vive numa casa/carro incompatível com sua realidade.`,
           examples: [
-            "Com fundo: O carro quebra, custa R$ 2.000. Você paga à vista, ganha desconto e segue a vida.",
-            "Sem fundo: O carro quebra. Você parcela no cartão, paga juros, se enrola na fatura seguinte, entra no cheque especial e cria uma bola de neve de dívidas."
+            "Exemplo prático: Se você ganha R$ 4.000 líquidos.",
+            "R$ 2.000 para contas fixas e essenciais.",
+            "R$ 1.200 para curtir a vida.",
+            "R$ 800 para investir e construir patrimônio."
           ],
-          commonErrors: "Usar a reserva para oportunidades de consumo ('Ah, o iPhone tá em promoção, é uma emergência'). Isso é autossabotagem. Reserva é para proteger a vida, não para melhorar o estilo de vida.",
-          summary: "Construa o alicerce antes do telhado. Dormir sabendo que você tem 6 meses de contas pagas no banco é o melhor travesseiro do mundo.",
-          exercise: "Calcule quanto é seu custo de vida mensal x 6. Anote esse valor. Essa é sua 'Linha de Chegada' da Fase 1."
+          commonErrors: "Tentar investir 'o que sobra'. Nunca sobra. A Lei de Parkinson diz que seus gastos sempre expandem até ocupar toda a renda disponível. Invista assim que receber.",
+          summary: "Dê uma função para cada real antes mesmo de recebê-lo.",
+          exercise: "Desenhe um gráfico de pizza da sua renda atual. Quanto % está indo para cada área? Compare com o ideal 50/30/20."
         }
       }
     ]
   },
   {
     id: 'mod3',
-    title: 'Módulo 3: Exterminador de Dívidas',
+    title: 'Módulo 3: Aprende a gerir o teu dinheiro',
     lessons: [
       {
         id: 'l11',
-        title: '11. Mapeando o Inimigo',
-        duration: '16 min',
+        title: '11. Organização do Orçamento Mensal',
+        duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1200', // Checklist / Organization / Desk
         content: {
-          intro: "A guerra contra os juros começa agora. Pare de ignorar as ligações de cobrança e de esconder as cartas fechadas na gaveta. Vamos partir para o ataque.",
-          explanation: `### O Inventário da Dívida
-O primeiro passo para sair do buraco é parar de cavar e olhar para cima. Você precisa listar TODAS as suas dívidas. Não esconda nada de si mesmo. Crie uma tabela com: Credor, Valor Original, Valor Atual (com juros), Custo Efetivo Total (CET - a taxa real de juros) e Status (em dia ou atrasada).
+          intro: "Organização vence a força de vontade. Se você depender da memória, vai falhar.",
+          explanation: `### Classificação Inteligente
 
-### Triagem de Guerra: O Que Pagar Primeiro?
-Nem todas as dívidas são iguais. Devemos classificá-las pelo dano que causam.
-Primeiro, as Dívidas Explosivas (Cartão de Crédito e Cheque Especial), que possuem juros abusivos de até 400% ao ano.
-Segundo, as Dívidas Essenciais (Luz, Água, Aluguel), que garantem sua sobrevivência.
-Terceiro, Dívidas com Garantia (Carro, Casa), onde você pode perder o bem.
-Por último, Dívidas Suaves (familiares ou empréstimos com taxas baixas).`,
+Para gerir, precisamos separar o joio do trigo. Entenda a diferença crucial entre os tipos de gastos:
+
+| Tipo | Fixas | Variáveis |
+|---|---|---|
+| **Definição** | Valor previsível, todo mês | Valor oscila, depende do uso |
+| **Exemplos** | Aluguel, Escola, Internet | Mercado, Uber, Lazer, Roupas |
+| **Dificuldade** | Difícil cortar (exige mudança) | Fácil cortar (exige disciplina) |
+| **Estratégia** | Renegociar anualmente | **Estabelecer um TETO mensal** |
+
+O segredo da gestão está nas **Variáveis**. É no supermercado e no lazer que o orçamento estoura. Estabeleça tetos: "Só posso gastar R$ 600 de mercado este mês".`,
           examples: [
-            "Erro crasso: Usar o dinheiro que tinha para pagar o Cartão de Crédito (juros altos) para pagar uma dívida com um tio (juros zero) só por vergonha. A matemática não liga para seus sentimentos.",
-            "Focar em pagar a dívida menor primeiro (Método Bola de Neve) para ganhar motivação psicológica, mesmo que a matemática diga para pagar a de maior juros (Avalanche)."
+            "Teto de Gastos: Levar dinheiro vivo ou cartão pré-pago para a balada/bar.",
+            "Quando o dinheiro acaba, a festa acaba. Isso evita a ressaca financeira moral do dia seguinte."
           ],
-          commonErrors: "Fazer acordos de parcelamento pagando apenas o mínimo da fatura ou aceitando a primeira proposta do banco. Isso apenas 'rola' a dívida e a torna impagável.",
-          summary: "Encare os números. O monstro sempre parece menor quando acendemos a luz e olhamos diretamente para ele.",
-          exercise: "Preencha a tabela de dívidas hoje. Identifique qual delas possui a maior taxa de juros (CET). Essa é sua Inimiga Número 1."
+          commonErrors: "Deixar as contas em débito automático e nunca conferir. Empresas erram cobranças com frequência.",
+          summary: "A previsibilidade traz paz. Saiba quanto vai sair antes do mês começar.",
+          exercise: "Defina um teto máximo de gastos para 'Lazer' e 'Supermercado' para o próximo mês."
         }
       },
       {
         id: 'l12',
-        title: '12. O Jogo da Negociação',
-        duration: '20 min',
+        title: '12. Método dos Envelopes',
+        duration: '12 min',
+        image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1200', // Paper Envelopes / Organization
         content: {
-          intro: "O banco não quer seu nome sujo, ele quer recuperar dinheiro. Para ele, receber 10% de uma dívida perdida é melhor que zero. Use isso a seu favor.",
-          explanation: `### A Regra dos 90% de Desconto
-Dívidas bancárias antigas (vencidas há mais de 2 ou 3 anos) e sem garantia real geralmente são consideradas 'Prejuízo' no balanço do banco e vendidas para empresas de recuperação de crédito por centavos. Isso abre margem para descontos agressivos. É comum ver dívidas de R$ 20.000 sendo quitadas por R$ 2.000 ou menos em feirões como o do Serasa Limpa Nome.
+          intro: "Uma técnica antiga, analógica e brutalmente eficiente para quem tem dificuldade de controle.",
+          explanation: `### Dinheiro Físico vs. Digital
 
-### Táticas de Negociação
-Nunca demonstre desespero. Se o cobrador perceber que você precisa limpar o nome hoje para um financiamento, ele não dará desconto. Tenha o dinheiro à vista, pois os maiores descontos são para quitação cash. Parcelar dívida velha é ruim, pois reativa os juros. Use canais oficiais como Feirões do Serasa ou o chat direto do banco, que costumam ter alçadas de desconto maiores que o atendente do telefone.
+Estudos mostram que gastar no cartão de crédito dói menos no cérebro do que entregar dinheiro vivo. O método dos envelopes usa essa psicologia a seu favor.
 
-### Dívida Caduca?
-Após 5 anos, o nome sai do SPC/Serasa (a dívida 'caduca' nos bureaus de crédito). Porém, a dívida continua existindo internamente no banco. Você não será processado, mas dificilmente conseguirá crédito naquela instituição novamente (o tal do 'Restrição Interna').`,
+**Como funciona:**
+1.  Saque o dinheiro das despesas variáveis (Mercado, Lazer, Gasolina).
+2.  Coloque em envelopes separados.
+3.  Escreva "MERCADO" no envelope.
+4.  Quando for ao mercado, leve o envelope.
+
+Se o dinheiro acabar no dia 20, você come o que tem na despensa até o dia 30.
+
+Isso cria **consciência real** de escassez e te força a fazer escolhas melhores durante o mês.`,
           examples: [
-            "Ameaçar portabilidade: Dizer ao gerente que vai levar seu salário para outro banco se as taxas não melhorarem é uma arma poderosa.",
-            "Proposta firme: 'Tenho R$ 1.500 para quitar essa dívida de R$ 5.000 agora. É pegar ou largar.' Muitas vezes, funciona."
+            "Visualização: Ver o envelope ficando vazio na segunda semana te faz economizar naturalmente.",
+            "Sem precisar de planilha, seu cérebro entende o limite."
           ],
-          commonErrors: "Fazer um acordo que não consegue pagar. Se você pagar a primeira parcela e falhar na segunda, o acordo é quebrado, a dívida volta ao valor original (cheio) e você perdeu o dinheiro da entrada.",
-          summary: "Quem deve tem o dinheiro, logo, tem o poder. Negocie sem vergonha. É apenas um negócio.",
-          exercise: "Acesse o site do Serasa Limpa Nome ou o Registrato do Banco Central e verifique a situação real das suas dívidas e ofertas disponíveis."
+          commonErrors: "Roubar de um envelope para colocar no outro. Se acabou o dinheiro do lazer, acabou. Disciplina é a chave.",
+          summary: "Se o digital te faz gastar demais, volte ao analógico até reeducar seu cérebro.",
+          exercise: "Teste o método dos envelopes por 1 semana apenas com a categoria 'Lazer'."
         }
       },
       {
         id: 'l13',
-        title: '13. Troca de Dívida (Portabilidade)',
+        title: '13. Planilhas e Apps Financeiros',
         duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200', // Smartphone / Data Analytics / Graphs
         content: {
-          intro: "A matemática financeira pode salvar sua pele. Trocar uma dívida cara por uma barata é a jogada mais inteligente para estancar a sangria dos juros.",
-          explanation: `### Arbitragem de Juros
-Se você deve R$ 5.000 no Cheque Especial pagando 12% ao mês, sua dívida dobra em menos de um ano. Se você pegar um Empréstimo Consignado (ou Pessoal) de R$ 5.000 a 2% ou 3% ao mês, quitar o Cheque Especial e ficar devendo o Consignado, você trocou uma dívida impagável por uma pagável.
+          intro: "A tecnologia pode ser sua melhor amiga ou sua maior distração. Escolha a ferramenta que você realmente usa.",
+          explanation: `### Digitalizando o Controle
 
-### Ranking de Crédito
-Sempre busque descer nessa escada do crédito mais caro para o mais barato. O Empréstimo com Garantia (Imóvel/Veículo) tem as menores taxas. Depois vem o Consignado, seguido da Antecipação de FGTS e Empréstimo Pessoal. Fuja do Cheque Especial e do Cartão Rotativo, que são o inferno financeiro.
+Para quem odeia papel, apps e planilhas são a solução.
 
-Atenção: Essa estratégia SÓ funciona se você pegar o crédito barato, quitar a dívida cara E PARAR de usar o cartão/limite. Se você liberar o limite e gastar de novo, terá duas dívidas e quebrará.`,
+**Planilhas (Excel/Google Sheets):**
+Permitem personalização total e projeções complexas. Ótimo para quem gosta de detalhes e sentar no computador 1x por semana.
+
+**Apps Automáticos (Organizze, Mobills, Bankin):**
+Conectam nas contas e categorizam sozinhos. Ótimo para quem não tem tempo, mas exige revisão para corrigir categorias erradas.
+
+O melhor app é aquele que você abre. Não adianta ter um sistema complexo que você abandona em 3 dias.`,
           examples: [
-            "Usar o FGTS: Muitas vezes vale a pena antecipar o Saque-Aniversário para matar uma dívida de cartão, pois o rendimento do FGTS (3% ao ano + TR) perde feio para os juros da dívida.",
-            "Garantia de Carro: Refinanciar seu carro quitado pode levantar dinheiro com juros de 1.5% a.m. para pagar um cartão de 14% a.m."
+            "Automação: Apps que mandam notificação 'Você gastou 80% do seu orçamento de Restaurantes' ajudam a frear o comportamento em tempo real.",
           ],
-          commonErrors: "Pegar o empréstimo para 'limpar o nome' e voltar a gastar. Isso não é solução, é cavar um buraco mais fundo.",
-          summary: "Seja inteligente. Use as próprias armas do sistema financeiro para se libertar dele. Troque juros abusivos por juros justos.",
-          exercise: "Simule um empréstimo pessoal no seu banco ou em fintechs e compare o Custo Efetivo Total (CET) com a taxa que você paga hoje no cartão/cheque especial."
-        }
-      },
-      {
-        id: 'l14',
-        title: '14. Psicologia do Consumo',
-        duration: '18 min',
-        content: {
-          intro: "O marketing gasta bilhões para hackear seu cérebro. Se você não entender seus gatilhos mentais, será uma marionete nas mãos das lojas.",
-          explanation: `### O Método HALT
-Nunca tome decisões financeiras (compras ou investimentos) quando estiver em estados emocionais alterados. A sigla HALT resume os perigos: Hungry (Fome), Angry (Raiva), Lonely (Solidão) e Tired (Cansaço). Esses estados diminuem sua força de vontade racional e aumentam a impulsividade.
-
-### O Custo em Vida
-Pare de olhar o preço em Reais. Converta para Horas de Vida. Divida o preço do produto pelo quanto você ganha por hora líquida. Se um tênis custa R$ 600 e você ganha R$ 20 por hora, ele custa 30 horas de trabalho. Vale a pena ficar sentado 30 horas no escritório, aguentando trânsito e chefe, em troca desse par de tênis? Essa pergunta costuma matar a vontade de comprar na hora.`,
-          examples: [
-            "Promoções falsas: 'De R$ 500 por R$ 299'. Seu cérebro foca na 'economia' de R$ 200, mas esquece que você gastou R$ 299 que não precisava.",
-            "Frete grátis: Gastar R$ 50 a mais em produtos inúteis só para não pagar R$ 15 de frete. Matemática básica falhando."
-          ],
-          commonErrors: "Ir ao shopping como 'passeio'. Shopping é centro de compras, feito para tirar dinheiro de você. Se quer passear, vá a um parque. Quem passeia em shopping compra o que não precisa.",
-          summary: "Domine suas emoções ou elas devorarão seu salário. A compra por impulso é uma tentativa rápida de sentir alívio, mas o efeito passa e a fatura fica.",
-          exercise: "Calcule o valor da sua hora de trabalho hoje (Salário Líquido / Horas trabalhadas). Tenha esse número na cabeça na próxima compra."
-        }
-      },
-      {
-        id: 'l15',
-        title: '15. Blindagem de Comportamento',
-        duration: '14 min',
-        content: {
-          intro: "Sair do buraco é difícil, cair de novo é muito fácil. Vamos instalar barreiras de proteção para que você nunca mais volte a ser escravo de dívidas.",
-          explanation: `### A Vida à Vista
-Adote uma filosofia radical pelos próximos 12 meses: Se não tem dinheiro para pagar à vista no débito ou PIX, você não pode comprar. Ponto. O crédito deve ser tratado como uma ferramenta perigosa, útil se souber usar, fatal se distrair. Pagar à vista garante descontos e mantém seus pés no chão.
-
-### Crie Fricção
-A facilidade é inimiga da economia. O "Comprar com 1 Clique" da Amazon é genial para eles e terrível para você. Remova cartões salvos dos apps e navegadores. Obrigue-se a levantar e pegar a carteira. Desinscreva-se de e-mails de ofertas. Quanto mais difícil for o processo de compra, mais tempo seu cérebro racional terá para assumir o controle e perguntar: 'Eu realmente preciso disso?'.`,
-          examples: [
-            "Regra das 24 horas: Se quiser comprar algo não essencial, espere 24 horas. Em 80% dos casos, a vontade passa.",
-            "Desinstalar apps de e-commerce do celular e usar apenas no computador. Isso reduz drasticamente as compras por tédio."
-          ],
-          commonErrors: "Reativar o cartão de crédito e aumentar o limite assim que limpa o nome, achando que 'agora aprendi'. O hábito leva tempo para mudar. Mantenha limites baixos.",
-          summary: "Liberdade é não dever nada a ninguém. Proteja essa liberdade criando barreiras contra seus próprios impulsos.",
-          exercise: "Remova os dados do seu cartão de crédito de todos os aplicativos (iFood, Uber, Amazon) e sites de compra agora mesmo. Crie a dificuldade necessária."
+          commonErrors: "Baixar 5 apps e não alimentar nenhum.",
+          summary: "A melhor ferramenta é aquela que funciona para você.",
+          exercise: "Escolha UMA ferramenta (App ou Planilha) e comprometa-se a usá-la por 30 dias sem falhar."
         }
       }
     ]
   },
   {
     id: 'mod4',
-    title: 'Módulo 4: A Multiplicação',
+    title: 'Módulo 4: Saindo do Vermelho (Dívidas)',
     lessons: [
       {
-        id: 'l16',
-        title: '16. Renda Fixa x Renda Variável',
+        id: 'l14',
+        title: '14. O Inventário da Dívida',
         duration: '20 min',
+        image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200', // Chains / Lock / Freedom
         content: {
-          intro: "Investir não é aposta, loteria ou cassino. É alocação racional de recursos baseada em risco e retorno. Vamos entender o terreno onde você vai pisar.",
-          explanation: `### O Grande Duelo
-Existem, basicamente, dois tipos de investimento no universo.
+          intro: "A dívida é um cupim financeiro. Se você ignorar, ela consome a casa inteira. Hoje vamos acender a luz e olhar o estrago.",
+          explanation: `### Encarando o Monstro
 
-Na Renda Fixa (Dívida), você EMPRESTA dinheiro para alguém (Banco ou Governo). Em troca, eles te devolvem o dinheiro mais juros numa data combinada. O risco é menor e o retorno é previsível. Exemplos: Tesouro Direto, CDB, LCI. Serve para proteger patrimônio e reservas de curto prazo.
+O primeiro passo para sair das dívidas é saber o tamanho exato do problema. A maioria das pessoas tem medo de somar.
 
-Na Renda Variável (Sociedade), você se torna SÓCIO de um negócio (Empresas ou Imóveis). Você não tem garantia de retorno, mas participa dos lucros. O risco oscilação de preço é maior, mas o potencial de retorno no longo prazo é infinito. Exemplos: Ações e Fundos Imobiliários. Serve para multiplicar patrimônio no longo prazo.
+Você precisa criar uma tabela com:
+1.  Para quem deve (Banco, Loja, Parente).
+2.  Valor original.
+3.  Valor atual (com juros).
+4.  Custo Efetivo Total (CET) - a taxa de juros real.
 
-### A Carteira Inteligente
-Não coloque tudo em um só lugar. Use a Renda Fixa para segurança e objetivos com data (viagem, carro). Use a Renda Variável para aposentadoria e liberdade financeira, dinheiro que pode ficar investido por 10 anos ou mais.`,
+### A Hierarquia do Pagamento
+
+Nem toda dívida é igual. Algumas são "câncer" (juros altos), outras são "gripe" (juros baixos).
+
+| Prioridade | Tipo de Dívida | Juros Médios | Ação |
+|---|---|---|---|
+| **🚨 1. Urgentíssima** | Cartão de Crédito, Cheque Especial | 300% a.a. | Pagar ou Renegociar ONTEM. |
+| **⚠️ 2. Urgente** | Empréstimo Pessoal | 80% a.a. | Tentar portabilidade. |
+| **🟠 3. Média** | Financiamento de Carro | 20% a.a. | Manter em dia se possível. |
+| **🟢 4. Baixa** | Financiamento Imobiliário | 9% a.a. | Pagar conforme o fluxo. |
+
+Nunca pague a dívida da casa antes de quitar o cartão de crédito. É matemática básica.`,
           examples: [
-            "Erro clássico: Colocar dinheiro do casamento (que acontece em 1 ano) na Bolsa de Valores. O mercado cai 30% na véspera e você se desespera.",
-            "Erro conservador: Deixar dinheiro da aposentadoria (20 anos) na Poupança. A inflação vai destruir seu poder de compra e você chegará pobre na velhice."
+            "Erro comum: Usar o dinheiro da poupança (rende 6% ao ano) para manter dinheiro aplicado enquanto deve no cartão (custa 300% ao ano).",
+            "Matematicamente, quitar a dívida é o melhor investimento que existe nesse caso."
           ],
-          commonErrors: "Buscar a 'dica quente' ou o 'investimento do momento'. Quem segue manada vira churrasco. Estude os fundamentos.",
-          summary: "Diversificação é o único 'almoço grátis' do mercado. Nunca coloque todos os ovos na mesma cesta.",
-          exercise: "Descubra seu perfil de investidor (Suitability) no app da sua corretora. Isso vai te dizer quanto de risco seu estômago aguenta."
+          commonErrors: "Aceitar a primeira proposta de renegociação do banco. O gerente tem meta de lucro, não de te ajudar.",
+          summary: "A dívida não define quem você é, mas define onde você pode chegar. Limpe o caminho.",
+          exercise: "Faça o inventário completo de suas dívidas e ordene-as da maior taxa de juros para a menor."
         }
       },
       {
-        id: 'l17',
-        title: '17. O Tesouro Direto',
-        duration: '22 min',
-        content: {
-          intro: "A porta de entrada dos investimentos. Empreste dinheiro para o Governo Federal e tenha a garantia mais sólida do país.",
-          explanation: `### O Cardápio do Tesouro
-Existem 3 pratos principais no cardápio do governo, e escolher o errado pode te dar prejuízo.
-
-O Tesouro Selic acompanha a taxa básica de juros. Ele sempre sobe, nunca cai (rentabilidade positiva diária). É ideal para Reserva de Emergência e objetivos de curto prazo.
-
-O Tesouro IPCA+ paga a Inflação mais uma taxa fixa. Ele garante que seu dinheiro sempre vai comprar mais no futuro do que compra hoje (ganho real). É ideal para aposentadoria e longo prazo.
-
-O Tesouro Prefixado tem uma taxa fixa combinada na hora. É bom para médio prazo, mas se a inflação subir muito, você pode perder poder de compra.
-
-### Marcação a Mercado
-Nos títulos IPCA e Prefixado, o preço do título oscila todo dia. Se você precisar vender ANTES do vencimento, pode perder dinheiro. A regra é clara: Se comprar IPCA ou Prefixado, leve até a data final para receber exatamente o contratado. O Tesouro Selic é o único que você pode vender a qualquer hora sem risco de perda nominal.`,
-          examples: [
-            "Selic: Você coloca R$ 1.000. Amanhã tem R$ 1.000,50. Depois R$ 1.001,00. É a escadinha segura.",
-            "IPCA+ 2045: Você coloca R$ 1.000. Amanhã pode ter R$ 980 (se os juros subirem) ou R$ 1.050 (se caírem). Se esperar até 2045, recebe o combinado. Se vender no susto, perde."
-          ],
-          commonErrors: "Vender títulos de longo prazo (IPCA) antecipadamente em momentos de estresse do mercado. Isso transforma uma oscilação virtual em prejuízo real.",
-          summary: "O Tesouro é o alicerce. Sem uma base sólida em Renda Fixa, você não terá paz para arriscar na Bolsa.",
-          exercise: "Entre no site oficial do Tesouro Direto e use o simulador. Veja quanto R$ 300 mensais no Tesouro IPCA+ virariam em 20 anos."
-        }
-      },
-      {
-        id: 'l18',
-        title: '18. Fundos Imobiliários (FIIs)',
+        id: 'l15',
+        title: '15. Estratégias de Negociação',
         duration: '25 min',
+        image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200', // Handshake / Deal / Negotiation
         content: {
-          intro: "O sonho do brasileiro é viver de aluguel. Com os FIIs, você pode ser dono de shoppings, prédios corporativos e galpões logísticos com R$ 10,00, sem lidar com inquilino ou IPTU.",
-          explanation: `### O Que São FIIs?
-Imagine que um Shopping custa 100 milhões. Você não pode comprar. Mas dividimos esse shopping em 10 milhões de pedacinhos (cotas) de R$ 10,00. Você compra 10 cotas. Você é dono de uma fração do shopping. Todo mês, o shopping recebe os aluguéis das lojas, paga as despesas e divide o lucro líquido entre os donos das cotas, isento de Imposto de Renda. Isso cai direto na sua conta.
+          intro: "O banco não quer tomar sua casa ou sujar seu nome para sempre. Eles querem dinheiro. E preferem receber pouco do que nada.",
+          explanation: `### A Regra de Ouro da Negociação
 
-### Tijolo vs Papel
-Existem Fundos de Tijolo, que são donos de imóveis reais e ganham com aluguel e valorização do imóvel. E existem Fundos de Papel, que investem em dívidas do setor imobiliário (CRIs). Eles funcionam como um banco emprestando para construtoras. Pagam dividendos maiores, mas não têm o imóvel físico protegendo contra a inflação no longo prazo.
+Nunca demonstre desespero. Se você tem uma dívida antiga (mais de 2 anos), o poder de barganha virou para o seu lado.
 
-### A Bola de Neve
-O objetivo do investidor de FIIs é atingir o "Número Mágico": a quantidade de cotas necessária para que o rendimento mensal pague uma nova cota. Exemplo: Se uma cota custa R$ 10 e paga R$ 0,10, você precisa de 100 cotas. Quando atingir isso, você compra uma cota nova sem tirar do bolso, e o efeito dos juros compostos explode.`,
+**Passo a passo para negociar:**
+1.  **Tenha dinheiro na mão:** Junte um valor para oferecer à vista. "Devo 5 mil, tenho 1 mil agora para quitar. Aceita?"
+2.  **Feirões Limpa Nome:** Serasa e bancos fazem eventos onde os descontos chegam a 90%.
+3.  **Portabilidade:** Se seu banco cobra 8% de juros, o banco vizinho pode comprar sua dívida cobrando 4%.
+
+### O Que NÃO Fazer
+
+Jamais faça um novo empréstimo para pagar o antigo, a menos que os juros sejam MUITO menores (Troca de Dívida Cara por Barata).
+
+Exemplo: Trocar Cheque Especial (12% a.m.) por Consignado (2% a.m.) é inteligente. Trocar por outro pessoal (10% a.m.) é trocar seis por meia dúzia.`,
           examples: [
-            "Liquidez: Vender um apartamento demora meses e custa caro (cartório, corretagem). Vender cotas de FIIs leva segundos pelo celular e o dinheiro cai em 2 dias.",
-            "Diversificação: Com R$ 1.000 você compra cotas de 10 fundos diferentes, se expondo a centenas de imóveis e inquilinos. Risco diluído."
+            "Caso Real: Dívida de Cartão de R$ 10.000 virou R$ 50.000 em 3 anos. No Feirão, o banco aceitou R$ 2.000 à vista para quitar.",
+            "O banco já considerava esse dinheiro perdido, então R$ 2.000 é lucro."
           ],
-          commonErrors: "Olhar apenas o Dividend Yield (quanto paga de aluguel) e ignorar a qualidade dos imóveis. Fundo ruim pode pagar muito por pouco tempo antes de quebrar. Olhe a localização e a gestão.",
-          summary: "FIIs são a melhor ferramenta para gerar renda passiva mensal e motivar o investidor iniciante a continuar aportando.",
-          exercise: "Pesquise o fundo 'MXRF11' (apenas exemplo educativo, não recomendação). Veja quanto custa uma cota e quanto pagou de rendimento no último mês."
+          commonErrors: "Renegociar uma parcela que não cabe no bolso. Você vai falhar novamente, e na segunda vez o banco não será bonzinho.",
+          summary: "Quem deve tem a força, desde que saiba jogar o jogo. Negocie com frieza.",
+          exercise: "Ligue para um credor ou simule no Serasa Limpa Nome qual seria o desconto para pagamento à vista de uma dívida."
         }
       },
       {
-        id: 'l19',
-        title: '19. Ações: Sócios de Gigantes',
-        duration: '25 min',
+        id: 'l16',
+        title: '16. Método Bola de Neve',
+        duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200', // Snow / Mountain / Avalanche
         content: {
-          intro: "Bolsa não é cassino. Ao comprar uma ação, você não está comprando um papelzinho piscando na tela, você está comprando um pedaço de um negócio real, com funcionários, produtos e lucro.",
-          explanation: `### Mentalidade de Sócio
-Quando você compra uma ação da WEG, Itaú ou Vale, você se torna sócio. Se a empresa lucra, você ganha parte desse lucro (Dividendos). Se a empresa cresce e vale mais, sua cota valoriza. O investidor de verdade torce para a ação CAIR. Por quê? Porque se a empresa é boa e o preço cai, ele pode comprar mais barato e aumentar sua participação.
+          intro: "Às vezes, a matemática diz uma coisa, mas a psicologia diz outra. O método Bola de Neve foca na sua motivação.",
+          explanation: `### Bola de Neve vs. Avalanche
 
-### Buy and Hold
-A estratégia mais vencedora da história não é ficar comprando e vendendo todo dia (Day Trade), enriquecendo a corretora com taxas. É comprar boas empresas, que dão lucro consistente há anos, têm dívidas controladas e boa gestão, e SEGURAR por décadas. O tempo e os juros compostos fazem o trabalho pesado.
+Existem duas formas principais de atacar múltiplas dívidas:
 
-### Como escolher empresas?
-Use o filtro básico de qualidade: A empresa dá lucro há 5 ou 10 anos seguidos? Ela deve menos do que consegue gerar de caixa? Ela está em um setor perene (que sempre vai existir, como bancos, energia, seguros)?`,
+**1. Avalanche (Matemática Pura):**
+Foca na dívida com **maior juros**. É a que economiza mais dinheiro no longo prazo, mas pode demorar para ver resultado (se a dívida for grande).
+
+**2. Bola de Neve (Psicológica):**
+Foca na dívida de **menor valor total**, independente dos juros.
+
+**Como funciona a Bola de Neve:**
+1.  Liste as dívidas da menor para a maior.
+2.  Pague o mínimo em todas, exceto a menor.
+3.  Ataque a menor com tudo o que tiver.
+4.  Quando quitar a menor, pegue o dinheiro que sobrava dela e ataque a próxima.
+
+O efeito psicológico de eliminar uma linha da sua planilha é poderoso e te dá gás para continuar.`,
           examples: [
-            "Quem comprou ações do Banco do Brasil há 20 anos e apenas reinvestiu os dividendos, multiplicou o capital por dezenas de vezes.",
-            "Day Trade: Estatísticas mostram que mais de 95% das pessoas que tentam viver de Day Trade perdem dinheiro. Não tente ser o esperto, seja o consistente."
+            "Dívida A: R$ 500 (Loja). Dívida B: R$ 10.000 (Banco).",
+            "Pague logo a de R$ 500. A sensação de vitória vai te motivar a encarar a de 10 mil.",
+            "Sem essa pequena vitória, você pode desanimar olhando para a montanha de 10 mil."
           ],
-          commonErrors: "Vender tudo em pânico quando o jornal diz que 'A Bolsa despencou'. Nessas horas, o patrimônio troca de mãos: dos desesperados para os preparados.",
-          summary: "A Bolsa de Valores é um mecanismo eficiente de transferência de dinheiro dos impacientes para os pacientes. Seja paciente.",
-          exercise: "Entre no site 'Status Invest' ou 'Investidor10'. Pesquise o histórico de lucros de uma empresa que você admira. Veja se a barrinha de lucro é crescente."
-        }
-      },
-      {
-        id: 'l20',
-        title: '20. ETFs: O Investimento Preguiçoso',
-        duration: '18 min',
-        content: {
-          intro: "E se você não quiser analisar balanços, ler relatórios ou escolher empresas? E se você pudesse comprar 'o mercado inteiro' de uma vez só? Apresento os ETFs.",
-          explanation: `### O Cesto de Ações
-ETF (Exchange Traded Fund) é um fundo passivo. Imagine uma cesta. Em vez de escolher qual maçã comprar, você compra a cesta inteira com todas as frutas do mercado. O ETF "BOVA11", por exemplo, compra as 80 maiores empresas do Brasil (Itaú, Vale, Petrobras...). Se o Brasil cresce, você ganha. O "IVVB11" compra as 500 maiores empresas dos Estados Unidos. Você investe nas maiores potências do mundo, em Dólar, sem sair do Brasil.
-
-### Vantagens da Gestão Passiva
-Com pouco dinheiro você se expõe a centenas de empresas (diversificação extrema). Se uma empresa falir, não afeta seu patrimônio. Além disso, o índice elimina as empresas ruins e coloca as boas automaticamente. Você sempre está posicionado nas vencedoras com baixo custo.
-
-### A Estratégia Neutra
-Para 99% das pessoas, comprar um ETF global todo mês, sem olhar preço, vai entregar um resultado superior a tentar escolher ações individuais. É chato, é simples e funciona absurdamente bem.`,
-          examples: [
-            "IVVB11: Permite dolarizar parte do seu patrimônio. Se o Dólar sobe ou as empresas americanas crescem, você ganha nas duas pontas.",
-            "WRLD11: Investe em mais de 9.000 empresas do mundo todo. É literalmente comprar a economia global."
-          ],
-          commonErrors: "Achar que ETF é ruim porque 'não vai te deixar rico rápido'. Investimento bom é como ver a grama crescer. Se quer emoção, vá ao estádio de futebol.",
-          summary: "Na dúvida, compre o mercado. É difícil ganhar do mercado consistentemente, então junte-se a ele.",
-          exercise: "Compare o gráfico de rentabilidade do ETF IVVB11 contra o índice Bovespa (IBOV) nos últimos 5 anos. O resultado vai te surpreender."
+          commonErrors: "Desistir no meio do caminho porque o progresso parece lento. A consistência vence a intensidade.",
+          summary: "O melhor método é aquele que você não abandona.",
+          exercise: "Decida qual método usar (Matemático ou Psicológico) e circule qual dívida será a 'Vítima Número 1' a ser eliminada."
         }
       }
     ]
   },
   {
     id: 'mod5',
-    title: 'Módulo 5: Acelerando a Renda',
+    title: 'Módulo 5: Blindagem Patrimonial',
     lessons: [
       {
-        id: 'l21',
-        title: '21. A Equação da Renda',
+        id: 'l17',
+        title: '17. Reserva de Emergência',
         duration: '20 min',
+        image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=1200', // Umbrella / Rain / Protection
         content: {
-          intro: "Economizar tem limite (você só pode cortar gastos até o zero). Ganhar mais não tem limite (o teto é infinito). Vamos parar de jogar na defesa e começar a atacar.",
-          explanation: `### Por que você ganha o que ganha?
-Você não é pago pelo seu esforço, pelo seu suor ou pelo quanto você precisa. O mercado é frio. Você é pago pela complexidade do problema que resolve e pela escala (quantas pessoas atinge). Um neurocirurgião ganha mais que um porteiro não porque é melhor pessoa, mas porque resolve um problema mais difícil e raro. Um professor online ganha mais que um presencial porque ensina 10.000 alunos ao invés de 30.
+          intro: "Imprevistos não são azar, são estatística. O carro vai quebrar, o dente vai doer, o emprego pode acabar. A Reserva é seu colete à prova de balas.",
+          explanation: `### O Que é a Reserva?
 
-Para ganhar mais, você precisa se tornar RARO ou ESCALÁVEL.
+É um dinheiro guardado EXCLUSIVAMENTE para emergências reais. Não é para trocar de celular ou viajar.
 
-### Renda Ativa vs Passiva vs Escalável
-Renda Ativa é vender horas (Salário, Uber). Se parar, não recebe.
-Renda Passiva é dinheiro trabalhando (Dividendos, Aluguéis).
-Renda Escalável é vender produtos ou sistemas (Curso online, Livro, Software). Você cria uma vez e vende para milhões. O esforço é desvinculado do ganho. O objetivo do jogo é usar a Renda Ativa para comprar Ativos e criar projetos Escaláveis.`,
+**Quanto guardar?**
+Depende da estabilidade da sua renda.
+
+| Perfil Profissional | Tamanho da Reserva |
+|---|---|
+| **Funcionário Público** | 3 a 6 meses do custo de vida |
+| **CLT (Setor Privado)** | 6 a 9 meses do custo de vida |
+| **Autônomo / Empreendedor** | 12 meses do custo de vida |
+
+Se seu custo mensal é R$ 2.000 e você é CLT, sua meta é ter entre R$ 12.000 e R$ 18.000 guardados.`,
           examples: [
-            "Escala: O Neymar não ganha milhões por chutar uma bola. Ele ganha porque milhões de pessoas assistem ele chutar a bola (Publicidade/TV).",
-            "Impacto: Se você economiza R$ 1 milhão para uma empresa, é justo cobrar R$ 100 mil de comissão. Se você só cumpre horário, receberá o piso da categoria."
+            "Sem Reserva: Pneu fura, você usa o cheque especial, paga juros e se endivida.",
+            "Com Reserva: Pneu fura, você saca da reserva, paga à vista com desconto e dorme tranquilo."
           ],
-          commonErrors: "Focar 100% em cortar o cafezinho e 0% em aprender novas habilidades para ser promovido. O aumento de salário tem muito mais impacto na riqueza que a economia doméstica.",
-          summary: "Pare de perseguir o dinheiro e comece a perseguir problemas. O dinheiro é apenas o aplauso do mercado pela solução que você entregou.",
-          exercise: "Liste 3 habilidades que você tem. Como você poderia empacotar uma delas para vender para 100 pessoas ao invés de 1?"
+          commonErrors: "Investir em ações antes de ter a reserva. Se a bolsa cair e você precisar do dinheiro, você realiza o prejuízo.",
+          summary: "A Reserva de Emergência compra a sua paz de espírito. E paz não tem preço.",
+          exercise: "Calcule o valor exato da sua Reserva Ideal (Custo Mensal x Meses de Segurança)."
         }
       },
       {
-        id: 'l22',
-        title: '22. Negociação Salarial e Carreira',
-        duration: '22 min',
-        content: {
-          intro: "Seu chefe não vai te dar aumento por bondade. Empresas são moinhos de lucro. Você precisa provar, com números, que você é um investimento, não um custo.",
-          explanation: `### O Dossiê de Valor
-Nunca entre na sala do chefe para pedir aumento de mãos vazias ("Ah, o aluguel subiu"). O mercado não liga para suas contas. Prepare um documento de 1 página com os resultados que você entregou nos últimos 12 meses, quanto dinheiro você fez a empresa ganhar ou economizar e um comparativo salarial do mercado mostrando que você está defasado.
-
-### O Timing e a Abordagem
-Peça feedback ANTES de pedir aumento. "O que eu preciso fazer para atingir o próximo nível?". Crie um compromisso. Quando você entregar o combinado, o aumento é a consequência natural. Se você entregar e o aumento não vier, você tem sua resposta: é hora de mudar de empresa. Mudar de emprego a cada 2 ou 3 anos costuma aumentar o salário mais rápido que esperar promoções internas.`,
-          examples: [
-            "Postura: Não peça 'por favor'. Apresente um 'business case'. 'Entreguei X, o mercado paga Y, gostaria de ajustar minha remuneração para Z para continuarmos crescendo juntos.'",
-            "Contraproposta: Se a empresa não pode dar dinheiro agora, negocie benefícios (home office, curso pago, bônus variável)."
-          ],
-          commonErrors: "Levar a negativa para o lado pessoal, ficar de 'birra' e parar de trabalhar. Isso queima seu filme e te impede de conseguir boas referências para o próximo emprego.",
-          summary: "Você é uma empresa de uma pessoa só (S.A.). Seu empregador é seu cliente. Se o cliente paga mal, você busca clientes melhores, mas nunca entrega um serviço ruim.",
-          exercise: "Pesquise no Glassdoor ou LinkedIn Vagas a média salarial para seu cargo. Você está sendo pago o justo? Se não, atualize seu currículo hoje."
-        }
-      },
-      {
-        id: 'l23',
-        title: '23. Empreendedorismo Digital',
-        duration: '25 min',
-        content: {
-          intro: "A internet democratizou a riqueza. Nunca na história da humanidade foi tão barato começar um negócio. Você tem uma loja global no seu bolso.",
-          explanation: `### O Poder da Margem e Escala
-No mundo físico, abrir uma loja custa R$ 100 mil. No digital, custa o preço de um domínio. Existem modelos excelentes para começar como Renda Extra.
-O Infoprodutor vende conhecimento (cursos, e-books) com margem de lucro de quase 100%. O Afiliado vende produtos dos outros e ganha comissão. Serviços Digitais como Gestão de Tráfego e Design têm demanda infinita. E o Dropshipping permite vender produtos físicos sem ter estoque.
-
-### O Conceito de MVP
-Não gaste meses criando a logo perfeita. Crie uma versão "feia" e funcional do seu produto e tente vender. O mercado vai dizer se vale a pena. Falhe rápido e barato.`,
-          examples: [
-            "Exemplo Real: Uma pessoa que ama organizar armários cria um Instagram dando dicas, ganha seguidores e lança um e-book 'Guia da Casa Organizada' por R$ 47. Vende 100 cópias = R$ 4.700 extras.",
-            "Freelance Global: Vender serviços para fora (Upwork, Fiverr) ganhando em Dólar. O real vale 5x menos. Seu esforço vale 5x mais."
-          ],
-          commonErrors: "Achar que o mercado está saturado. O mercado está cheio de amadores ruins. Sempre existe espaço enorme para quem é profissional, cumpre prazos e entrega qualidade.",
-          summary: "Não seja apenas um consumidor de conteúdo. Torne-se um criador. A internet é uma ferramenta de impressão de dinheiro se souber usar.",
-          exercise: "Cadastre-se em uma plataforma (Hotmart, Kiwify, Eduzz) e olhe o 'Mercado'. Veja o que as pessoas estão vendendo. Isso vai te dar ideias."
-        }
-      },
-      {
-        id: 'l24',
-        title: '24. Renda Extra e Freelance',
-        duration: '18 min',
-        content: {
-          intro: "Use suas noites e finais de semana para construir seu império, não apenas para descansar do trabalho que você talvez nem goste.",
-          explanation: `### Ocupando o Tempo Ocioso
-Todos temos as mesmas 24 horas. A diferença é o que fazemos das 19h às 23h. Se você usar esse tempo para Netflix, terá diversão. Se usar para Renda Extra, terá liberdade. Renda extra não deve ser usada para pagar pizza. Deve ser 100% investida. É o turbo da sua máquina de riqueza.
-
-### Freelance Estratégico
-Não faça bicos aleatórios. Tente fazer renda extra em áreas que te ensinem habilidades valiosas. Entregar panfleto não ensina nada escalável. Gerenciar o Instagram da padaria do bairro ensina marketing, negociação e design.
-
-### A Transição de Carreira
-Quando sua renda extra atingir 70% a 100% do seu salário fixo de forma consistente por 6 meses, você tem a opção de demitir seu chefe e empreender full-time com segurança.`,
-          examples: [
-            "Arbitragem de Serviços: Você fecha um contrato de design por R$ 500, contrata um designer iniciante por R$ 200, gerencia a qualidade e lucra R$ 300 sem 'colocar a mão na massa' (apenas gestão).",
-            "Passeador de Cães (Dog Walker): Alta demanda em grandes cidades, paga bem por hora e exercita o corpo."
-          ],
-          commonErrors: "Gastar o dinheiro da renda extra aumentando o padrão de vida. Esse dinheiro é sagrado. Ele deve ir direto para a corretora.",
-          summary: "O trabalho enriquece, o trabalho inteligente liberta. Use sua força de trabalho excedente para comprar sua liberdade futura.",
-          exercise: "Pense em um serviço que você pode oferecer este fim de semana para um vizinho ou amigo por R$ 50 ou R$ 100. Execute."
-        }
-      },
-      {
-        id: 'l25',
-        title: '25. Networking e Ambiente',
+        id: 'l18',
+        title: '18. Onde Guardar a Reserva?',
         duration: '15 min',
+        image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200', // Safe / Vault / Gold
         content: {
-          intro: "Você é a média das 5 pessoas com quem mais convive. Se você anda com 5 endividados que reclamam da vida, você será o sexto.",
-          explanation: `### O Poder do Contágio Social
-O ser humano é um animal social mimético. Copiamos o comportamento do grupo para sermos aceitos. Se seu grupo gasta tudo em balada e carro financiado, você se sentirá um alienígena por investir. Se seu grupo fala de negócios e investimentos, você terá vergonha de não evoluir. Para mudar de vida, muitas vezes é preciso mudar de ambiente.
+          intro: "Reserva de emergência não é para ficar rico, é para estar disponível. Rentabilidade aqui não importa, liquidez é rainha.",
+          explanation: `### O Tripé da Reserva
 
-### Networking Verdadeiro
-Networking não é trocar cartão de visita ou adicionar no LinkedIn. É gerar valor. O interesseiro pergunta "O que você pode fazer por mim?". O interessante pergunta "Como eu posso te ajudar?". Seja útil. Conecte pessoas. Resolva problemas. Quando você precisar, a reciprocidade agirá a seu favor.`,
+O dinheiro da emergência precisa ter 3 características obrigatórias:
+1.  **Liquidez Diária:** Posso sacar hoje ou amanhã?
+2.  **Segurança:** Risco quase zero de perder valor.
+3.  **Baixa Volatilidade:** Não pode oscilar como ações.
+
+### Onde Investir?
+
+| Investimento | Adequado? | Por que? |
+|---|---|---|
+| **Tesouro Selic** | ✅ Sim | Mais seguro do país, rende 100% da taxa básica. |
+| **CDB Liq. Diária** | ✅ Sim | Garantia FGC, fácil resgate em bancos digitais. |
+| **Poupança** | ⚠️ Ruim | Perde para a inflação, mas serve se você não sabe usar app. |
+| **Ações/FIIs** | ❌ JAMAIS | Podem cair 50% no dia que você precisar sacar. |
+
+Não invente moda. Reserva é no feijão com arroz.`,
           examples: [
-            "Eventos Presenciais: Pagar para ir em eventos da sua área não é gasto, é investimento em acesso. Uma conversa no café pode valer milhões ou gerar uma parceria de anos.",
-            "Mentores Virtuais: Se você não conhece ninguém rico pessoalmente, use a internet. Siga e consuma conteúdo de pessoas que estão onde você quer chegar."
+            "Deixar a reserva em Bitcoin: O Bitcoin cai 20% no dia que seu carro quebra. Você perdeu dinheiro duplamente.",
+            "Deixar no Tesouro Selic: O valor sobe um pouquinho todo dia, faça chuva ou faça sol."
           ],
-          commonErrors: "Pedir mentoria de graça para gente ocupada. Ninguém tem tempo a perder. Em vez de pedir, ofereça ajuda específica. Isso chama atenção.",
-          summary: "Sozinho você vai mais rápido, acompanhado (das pessoas certas) você vai mais longe. Cuide do seu ecossistema social.",
-          exercise: "Faça uma limpa no Instagram. Deixe de seguir perfis de fofoca ou ostentação vazia. Comece a seguir 5 perfis de educação financeira e negócios."
+          commonErrors: "Deixar o dinheiro parado na conta corrente (dinheiro morto) ou travado em investimentos de 2 anos (dinheiro preso).",
+          summary: "Lugar de reserva é onde você consegue pegar o dinheiro em 24 horas sem perder nada.",
+          exercise: "Abra conta em um banco digital ou corretora e verifique quanto rende o CDB de Liquidez Diária deles."
+        }
+      },
+      {
+        id: 'l19',
+        title: '19. Seguros: O Mal Necessário',
+        duration: '18 min',
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200', // Insurance / Hands protection / House
+        content: {
+          intro: "Você leva 10 anos para construir um patrimônio e 10 minutos para perdê-lo em um incêndio ou acidente. Blindagem é essencial.",
+          explanation: `### Transferindo o Risco
+
+Seguro é pagar um pouco para não ter que pagar muito se algo der errado. É transferir o risco da ruína para a seguradora.
+
+**Seguros Indispensáveis:**
+1.  **Seguro de Vida:** Se você tem dependentes (filhos, cônjuge), é obrigatório. Se você morrer, quem paga as contas?
+2.  **Seguro Auto:** Bater um carro de luxo pode custar R$ 200.000. Você tem esse dinheiro? Se não, tenha seguro contra terceiros.
+3.  **Seguro Residencial:** É barato (R$ 300/ano) e protege contra incêndio, roubo e danos elétricos.
+
+Muitos veem seguro como "gasto". Na verdade, é a garantia de que seu patrimônio não vai virar pó.`,
+          examples: [
+            "Acidente de carro sem seguro: Você paga o seu conserto e o do outro. Sua reserva de 5 anos some em 1 dia.",
+            "Acidente com seguro: Você paga a franquia e segue a vida."
+          ],
+          commonErrors: "Fazer seguro de celular (bem barato) e não fazer seguro de vida (bem insubstituível). Proteja o que vale mais.",
+          summary: "O melhor seguro é aquele que você paga e nunca usa.",
+          exercise: "Verifique se você possui os 3 seguros básicos. Se não, cote um Seguro de Vida ou Residencial esta semana."
         }
       }
     ]
   },
   {
     id: 'mod6',
-    title: 'Módulo 6: Liberdade e Legado',
+    title: 'Módulo 6: O Mundo dos Investimentos',
     lessons: [
       {
-        id: 'l26',
-        title: '26. Elisão Fiscal (O Leão do Imposto)',
+        id: 'l20',
+        title: '20. O Tripé dos Investimentos',
+        duration: '22 min',
+        image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200', // Balance / Triangle / Scale
+        content: {
+          intro: "Não existe investimento perfeito. Existe o investimento adequado para o seu objetivo. Aprenda a regra do cobertor curto.",
+          explanation: `### Rentabilidade, Segurança, Liquidez
+
+Você nunca terá os três ao mesmo tempo. Você deve escolher dois.
+
+1.  **Alta Rentabilidade + Alta Segurança:** Não tem Liquidez (Imóveis na planta, CDBs longos).
+2.  **Alta Segurança + Alta Liquidez:** Baixa Rentabilidade (Poupança, Tesouro Selic).
+3.  **Alta Rentabilidade + Alta Liquidez:** Baixa Segurança (Ações, Day Trade).
+
+Quando alguém te oferecer algo com "Alto retorno, seguro e que pode sacar quando quiser", **FOGE. É GOLPE.**
+
+### Alinhando Expectativas
+
+Para curto prazo, priorize Liquidez e Segurança (abre mão do lucro).
+Para longo prazo, priorize Rentabilidade (abre mão da liquidez e aceita risco).`,
+          examples: [
+            "Pirâmides financeiras prometem os 3: 10% ao mês (Rentabilidade), Garantido (Segurança) e saque diário (Liquidez). Não existe mágica.",
+          ],
+          commonErrors: "Buscar o 'melhor investimento do mundo'. Ele não existe. Existe uma carteira diversificada que equilibra os 3 pontos.",
+          summary: "Entender o tripé é a vacina contra golpes e frustrações.",
+          exercise: "Analise um investimento que te ofereceram recentemente. Qual dos 3 pés ele sacrifica?"
+        }
+      },
+      {
+        id: 'l21',
+        title: '21. Renda Fixa: Sopa de Letrinhas',
+        duration: '25 min',
+        image: 'https://images.unsplash.com/photo-1616514197671-15d99ce7a6f8?q=80&w=1200', // Bonds / Papers / Certificates
+        content: {
+          intro: "CDB, LCI, LCA, CRI, CRA. Parece complicado, mas é simples: Você empresta dinheiro e recebe juros de volta.",
+          explanation: `### Para quem você empresta?
+
+*   **Tesouro Direto:** Empresta para o **Governo**. (Risco Baixíssimo).
+*   **CDB:** Empresta para o **Banco**. (Risco Baixo - Garantido pelo FGC).
+*   **LCI/LCA:** Empresta para **Imóveis/Agro**. (Isento de Imposto de Renda).
+*   **Debêntures:** Empresta para **Empresas**. (Risco Médio/Alto).
+
+### Indexadores (Como rende?)
+
+1.  **Pós-fixado (% do CDI):** Segue a taxa de juros do país. Se a Selic sobe, você ganha mais. Ótimo para conservadores.
+2.  **Prefixado (12% ao ano):** Taxa fixa. Bom quando os juros vão cair. Ruim se a inflação explodir.
+3.  **Híbrido (IPCA + 6%):** Protege contra a inflação e garante um ganho real. O melhor para aposentadoria.`,
+          examples: [
+            "Tesouro IPCA+ 2045: Garante que seu dinheiro não vai perder valor para a inflação por 20 anos.",
+            "CDB 100% do CDI: Rende praticamente a mesma coisa que a taxa Selic."
+          ],
+          commonErrors: "Comprar título prefixado achando que é seguro e vender antes do vencimento. Você pode perder dinheiro na 'Marcação a Mercado'.",
+          summary: "Renda Fixa não é fixa. Ela só é fixa se você levar até o vencimento.",
+          exercise: "Entre na sua corretora e encontre um CDB que pague mais de 100% do CDI."
+        }
+      },
+      {
+        id: 'l22',
+        title: '22. Renda Variável: Sócio de Grandes Empresas',
+        duration: '30 min',
+        image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1200', // Stock Market / Bull / Screen
+        content: {
+          intro: "Quer enriquecer de verdade? Pare de emprestar dinheiro e comece a ser dono. Bem-vindo à Bolsa de Valores.",
+          explanation: `### O Que é uma Ação?
+
+É o menor pedaço de uma empresa. Ao comprar uma ação da Petrobras, você vira sócio dela. Se ela lucra, você recebe parte (Dividendos). Se ela valoriza, seu patrimônio cresce.
+
+### O Risco e o Tempo
+
+No curto prazo, a bolsa é um cassino: sobe e desce sem lógica.
+No longo prazo, a cotação segue o lucro. Empresas boas tendem a valorizar.
+
+| Mindset Perdedor | Mindset Vencedor |
+|---|---|
+| Compra porque subiu (Efeito Manada) | Compra empresas sólidas e lucrativas |
+| Vende porque caiu (Pânico) | Compra mais quando cai (Promoção) |
+| Quer ficar rico em 1 mês | Constrói patrimônio em 20 anos |
+
+### Fundos Imobiliários (FIIs)
+
+A porta de entrada. Você compra cotas de shoppings, galpões e escritórios e recebe 'aluguel' isento de IR todo mês na conta. É como ter um imóvel sem a dor de cabeça do inquilino.`,
+          examples: [
+            "Mágica dos Dividendos: Comprar 10 cotas de um FII. No mês seguinte, com o aluguel recebido, você consegue comprar mais um pedacinho da 11ª cota sem tirar dinheiro do bolso. É a Bola de Neve positiva.",
+          ],
+          commonErrors: "Fazer Day Trade (tentar adivinhar o movimento do dia). 95% das pessoas perdem dinheiro com isso.",
+          summary: "A bolsa é um mecanismo de transferir dinheiro dos impacientes para os pacientes.",
+          exercise: "Pesquise o que é o índice BOVESPA e veja o gráfico dele nos últimos 20 anos. A tendência é de alta ou baixa?"
+        }
+      },
+      {
+        id: 'l23',
+        title: '23. Montando sua Carteira Vencedora',
         duration: '20 min',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200', // Pie Chart / Diversification / Tablet
         content: {
-          intro: "Sonegar é crime e dá cadeia. Elisão Fiscal é inteligência e dá lucro. Aprenda a usar a lei para pagar o mínimo de imposto possível.",
-          explanation: `### O Sócio Majoritário
-O Governo é seu sócio em tudo. Ele leva 27,5% do seu salário, parte do seu lucro e do seu consumo. Reduzir essa mordida legalmente é essencial para acelerar a riqueza.
+          intro: "Não coloque todos os ovos na mesma cesta. A diversificação é o único almoço grátis do mercado financeiro.",
+          explanation: `### A Alocação de Ativos
 
-### Estratégias Básicas
-A Tabela Regressiva da Renda Fixa beneficia quem tem paciência: quanto mais tempo o dinheiro fica, menos imposto paga (cai de 22,5% para 15% após 2 anos).
-Existem investimentos isentos, como LCI, LCA e dividendos de Fundos Imobiliários. O governo incentiva esses setores e não cobra IR.
-Para quem ganha muito e declara no modelo completo, a Previdência PGBL permite abater até 12% da renda bruta anual na base de cálculo, gerando uma restituição gorda hoje.`,
-          examples: [
-            "Giro de Carteira: O investidor ansioso que compra e vende toda hora paga taxas e impostos máximos. No final de 10 anos, ele tem 40% menos patrimônio que o investidor quieto.",
-            "PJ x CLT: Para rendas altas, abrir uma empresa (PJ) e emitir nota fiscal pode reduzir a carga tributária drasticamente. Consulte um contador."
-          ],
-          commonErrors: "Esquecer de declarar ações no IR Anual. Mesmo que não tenha imposto a pagar, a declaração da posse e das operações é obrigatória. Um erro bobo pode bloquear seu CPF.",
-          summary: "Não divida seu lucro com o governo mais do que o estritamente necessário. Conheça as regras do jogo para jogar melhor.",
-          exercise: "Verifique se seus investimentos atuais pagam IR. Se pagam, veja se há alternativas isentas (LCI/LCA) com rentabilidade líquida similar ou superior."
-        }
-      },
-      {
-        id: 'l27',
-        title: '27. Proteção Patrimonial',
-        duration: '18 min',
-        content: {
-          intro: "Você levou 10 anos para construir seu patrimônio. Um processo judicial, um acidente de carro ou uma doença podem levar tudo em 10 dias. O ataque ganha jogos, a defesa ganha campeonatos.",
-          explanation: `### O Tripé da Proteção
-Seguro de Vida é essencial se alguém depende da sua renda. Não é para você, é para eles. Escolha seguros resgatáveis ou temporários que são baratos.
-Seguro de Bens (Auto/Residencial) tem custo irrisório perto do risco. Um incêndio ou roubo pode zerar seu patrimônio.
-Seguro de Responsabilidade Civil é vital para médicos, dentistas, engenheiros e empresários, protegendo contra processos de terceiros.
+O segredo não é acertar "a ação do momento", mas ter uma divisão equilibrada.
 
-### Estrutura Jurídica
-O casamento é o contrato financeiro mais importante da sua vida. O regime de Comunhão Parcial é o padrão, onde tudo que crescer é dos dois (inclusive dívidas). A Separação Total é recomendada para empresários para blindar o patrimônio do cônjuge caso a empresa quebre. Não é falta de amor, é gestão de risco racional.`,
-          examples: [
-            "Inventário: Processos de herança no Brasil são caros e travam os bens por meses. Um Seguro de Vida garante liquidez imediata para os herdeiros pagarem as custas sem vender os imóveis barato.",
-            "Acidentes: Bater numa BMW sem seguro pode custar R$ 100 mil. Um seguro de terceiros custa R$ 100/mês."
-          ],
-          commonErrors: "Achar que seguro é 'dinheiro jogado fora'. Seguro é custo de paz. Você paga rezando para perder (não usar). Se usar, o retorno sobre o investimento é infinito.",
-          summary: "Blinde seu castelo. Não deixe portas abertas para o azar entrar e levar o que você suou para construir.",
-          exercise: "Faça uma cotação de seguro de vida nesta semana. É mais barato do que você imagina (muitas vezes o preço de uma pizza por mês)."
-        }
-      },
-      {
-        id: 'l28',
-        title: '28. A Filosofia da Riqueza',
-        duration: '15 min',
-        content: {
-          intro: "Dinheiro sem propósito é apenas papel pintado. Se você não souber para que quer ser rico, a riqueza vai te trazer mais problemas que soluções.",
-          explanation: `### A Curva da Felicidade
-Estudos mostram que dinheiro traz felicidade SIM, mas até o ponto onde cobre suas necessidades básicas, segurança e conforto. Depois disso, a curva estagna. O iate de 100 pés não traz 10x mais felicidade que o barco de 10 pés. A verdadeira felicidade financeira vem da AUTONOMIA: a capacidade de acordar de manhã e dizer "hoje eu posso fazer o que eu quiser".
+**Sugestão para Iniciantes:**
+*   **60% Renda Fixa:** Tesouro Selic, CDBs, IPCA+ (Segurança).
+*   **25% Fundos Imobiliários:** Geração de Renda Mensal.
+*   **15% Ações:** Potencial de explosão a longo prazo.
 
-### Minimalismo Essencialista
-Não é viver numa casa vazia. É remover o ruído para focar no que importa. É gastar muito (sem culpa) no que você ama e cortar impiedosamente o gasto com o que você não liga (status). Status é comprar coisas que você não quer, com o dinheiro que você não tem, para impressionar gente de quem você não gosta. Saia dessa roda.`,
-          examples: [
-            "Experiências > Coisas: Viajar, jantar com amigos e aprender algo novo gera memórias duradouras. Comprar um relógio caro gera um pico de dopamina que passa em 1 semana.",
-            "A prática da doação: Doar dinheiro diz para o seu cérebro: 'Eu tenho tanto que posso dar'. Isso cura a escassez e a ganância."
-          ],
-          commonErrors: "Tornar-se o 'Tio Patinhas', o mais rico do cemitério. Acumular milhões vivendo de forma miserável e morrer sem aproveitar. O dinheiro é meio, não fim.",
-          summary: "Use o dinheiro para comprar tempo, não coisas. O tempo é o único recurso não renovável da sua vida.",
-          exercise: "Defina o que é 'Vida Rica' para VOCÊ. Para alguns é viajar 4x por ano. Para outros é buscar os filhos na escola todo dia as 15h. Qual é a sua versão?"
-        }
-      },
-      {
-        id: 'l29',
-        title: '29. O Plano de 10 Anos',
-        duration: '20 min',
-        content: {
-          intro: "A maioria das pessoas superestima o que pode fazer em 1 ano e subestima drasticamente o que pode fazer em 10 anos. O jogo é longo.",
-          explanation: `### A Curva Exponencial
-Nos primeiros anos de investimento, o resultado é decepcionante. Você aporta R$ 1.000 e ganha R$ 10 de juros. Parece inútil. É a fase de acumulação, o "Vale da Decepção". Porém, se você continuar, chega um ponto de inflexão onde os rendimentos superam seus aportes. Dali para frente, a curva empina verticalmente. Warren Buffett acumulou 99% da sua riqueza DEPOIS dos 50 anos.
+### Rebalanceamento
 
-### Manutenção da Rota
-Não fique olhando a cotação todo dia. Trabalhe para aumentar a renda, aporte todo mês religiosamente, rebalanceie a carteira uma vez ao ano e tenha paciência. O tédio é seu amigo. Investimento emocionante geralmente dá prejuízo. O bom investimento é chato como ver a tinta secar.`,
+Se as ações subirem muito e virarem 30% da carteira, você não vende. Você para de comprar ações e compra Renda Fixa até equilibrar novamente. Isso te força a comprar barato e vender caro automaticamente.`,
           examples: [
-            "O Poder da Constância: Aportar R$ 500 todo mês por 30 anos bate de longe o investidor que aporta R$ 10.000 uma vez e para. O tempo é o maior multiplicador.",
-            "Cenários: Em 10 anos, você terá envelhecido de qualquer jeito. Você prefere chegar lá com liberdade financeira ou com as mesmas dívidas de hoje? O tempo vai passar igual."
+            "Crise de 2020 (Covid): Quem tinha 100% em ações desesperou. Quem tinha diversificação, usou a Renda Fixa para comprar ações baratas na crise.",
           ],
-          commonErrors: "Girar o patrimônio a cada notícia ruim do jornal. O mundo sempre parece que vai acabar. Quem investiu nas piores crises ficou rico. Quem saiu, perdeu.",
-          summary: "O longo prazo nada mais é do que uma sucessão de vários 'dias de hoje' com disciplina. Plante hoje para colher na década que vem.",
-          exercise: "Escreva uma carta para o seu Eu do Futuro (daqui a 10 anos). Descreva exatamente onde você mora, quanto tem no banco e como é sua rotina. Guarde e leia quando desanimar."
-        }
-      },
-      {
-        id: 'l30',
-        title: '30. A Execução Final (Ação)',
-        duration: '12 min',
-        content: {
-          intro: "Chegamos ao fim da teoria. Mas conhecimento sem prática é apenas obesidade mental. Saber e não fazer é o mesmo que não saber.",
-          explanation: `### O Ciclo da Maestria
-Primeiro você aprende (teoria). Depois você aplica (teste, erro e ajuste). Por fim, você ensina (fixação). Não feche este curso sem ter feito o básico: mapear as dívidas, abrir conta na corretora, definir a meta da reserva e fazer o primeiro investimento, nem que seja R$ 30.
-
-### Adeus Inércia
-O medo de errar paralisa. "E se eu investir errado?". O maior erro é não investir. Deixar o dinheiro na Poupança ou debaixo do colchão é o único jeito garantido de perder para a inflação. Comece pequeno, mas comece. O movimento cura o medo.`,
-          examples: [
-            "Feito é melhor que perfeito. Um orçamento imperfeito numa folha de papel vale mais que uma planilha complexa vazia.",
-            "A melhor hora para plantar uma árvore foi há 20 anos. A segunda melhor hora é AGORA."
-          ],
-          commonErrors: "Comprar outro curso imediatamente achando que precisa aprender mais. Não, você precisa executar o que já sabe. Pare de procrastinar estudando.",
-          summary: "Você tem o mapa, a bússola e o veículo. A estrada é sua. O topo da montanha é solitário, mas a vista compensa. Nos vemos lá.",
-          exercise: "Sua missão final: Faça um PIX de qualquer valor para sua corretora AGORA e invista. Quebre a inércia física do dinheiro. Bem-vindo à sua nova vida."
+          commonErrors: "Copiar a carteira do youtuber famoso. O perfil de risco dele é diferente do seu.",
+          summary: "Uma carteira bem montada te permite dormir tranquilo mesmo quando o mundo está pegando fogo.",
+          exercise: "Desenhe como você gostaria que fosse sua pizza de investimentos ideal daqui a 5 anos."
         }
       }
     ]

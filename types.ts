@@ -2,6 +2,7 @@ export interface Lesson {
   id: string;
   title: string;
   duration: string;
+  image: string; // URL da imagem de capa da aula
   content: {
     intro: string;
     explanation: string;
