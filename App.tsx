@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard';
 import { LessonView } from './components/LessonView';
 import { Auth } from './components/Auth';
 import { AdminPanel } from './components/AdminPanel';
+import { LandingPage } from './components/LandingPage';
 import { Menu, X, Moon, Sun, LogOut } from 'lucide-react';
 
 const ThemeToggle: React.FC<{ isDark: boolean; toggle: () => void }> = ({ isDark, toggle }) => (
@@ -23,6 +24,8 @@ const App: React.FC = () => {
   const progress = useCourseProgress();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
+  const [initialAuthMode, setInitialAuthMode] = useState<'login' | 'register'>('login');
   
   // Estado elevado para controlar quais módulos estão abertos no menu
   const [expandedModules, setExpandedModules] = useState<string[]>(['mod1']);
@@ -35,7 +38,7 @@ const App: React.FC = () => {
       return false;
     };
 
-    // Disable Shortcuts (Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+P)
+    // Disable Shortcuts
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
         (e.ctrlKey || e.metaKey) && 
@@ -50,7 +53,7 @@ const App: React.FC = () => {
       }
     };
 
-    // Disable Drag and Drop (Images/Text)
+    // Disable Drag and Drop
     const handleDragStart = (e: DragEvent) => {
       e.preventDefault();
       return false;
@@ -80,6 +83,11 @@ const App: React.FC = () => {
     setIsSidebarOpen(true);
   };
 
+  const handleLogout = () => {
+    auth.logout();
+    setShowLanding(true); // Volta para Landing Page ao sair
+  };
+
   // Auth Routing
   if (showAdminLogin) {
     return (
@@ -89,8 +97,6 @@ const App: React.FC = () => {
         users={auth.users} 
         onGenerateUsers={auth.generateTestUsers}
         onBack={() => {
-          // Se o usuário estiver logado como aluno, apenas fecha o admin e volta pro dashboard.
-          // Se veio da tela de login (user é null), faz o logout completo para limpar estado.
           if (!auth.user) {
             auth.logout();
           }
@@ -100,29 +106,51 @@ const App: React.FC = () => {
     );
   }
 
+  // Se não estiver logado
   if (!auth.user) {
+    // Se estiver no modo Landing Page, mostra a landing
+    if (showLanding) {
+      return (
+        <LandingPage 
+          onGetStarted={() => {
+            setInitialAuthMode('register');
+            setShowLanding(false);
+          }}
+          onLogin={() => {
+            setInitialAuthMode('login');
+            setShowLanding(false);
+          }}
+          isDarkMode={progress.isDarkMode}
+          toggleTheme={progress.toggleTheme}
+        />
+      );
+    }
+
+    // Se saiu da Landing Page, mostra Auth (Login/Register)
     return (
       <>
         <ThemeToggle isDark={progress.isDarkMode} toggle={progress.toggleTheme} />
         <Auth 
+          initialMode={initialAuthMode}
           onLogin={auth.login} 
           onRegister={auth.register} 
           onAdminClick={() => setShowAdminLogin(true)}
+          onBack={() => setShowLanding(true)} // Botão para voltar para Landing Page
         />
       </>
     );
   }
 
-  // Course App
+  // Course App (Logado)
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300 select-none">
       <ThemeToggle isDark={progress.isDarkMode} toggle={progress.toggleTheme} />
 
-      {/* Header Mobile - Z-Index ajustado para ficar abaixo do Sidebar quando aberto */}
+      {/* Header Mobile */}
       <header className="lg:hidden fixed top-0 left-0 right-0 bg-white dark:bg-dark-card border-b border-gray-200 dark:border-dark-border px-4 py-3 z-30 flex items-center justify-between shadow-sm">
         <h1 className="font-bold text-brand-600 dark:text-brand-400 text-lg">Finanças</h1>
         <div className="flex items-center gap-2">
-           <button onClick={auth.logout} className="p-2 text-gray-500 hover:text-red-500">
+           <button onClick={handleLogout} className="p-2 text-gray-500 hover:text-red-500">
              <LogOut className="w-5 h-5" />
            </button>
            <button 
@@ -134,7 +162,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Overlay Escuro para Mobile - Z-Index 40 (Acima do Header, Abaixo do Sidebar) */}
+      {/* Overlay Escuro para Mobile */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
@@ -142,7 +170,7 @@ const App: React.FC = () => {
         />
       )}
 
-      {/* Sidebar - Container fixo no desktop, com comportamento Z-Index corrigido no mobile */}
+      {/* Sidebar */}
       <div className="lg:h-screen lg:sticky lg:top-0">
         <Sidebar 
           modules={progress.modules}
@@ -152,11 +180,11 @@ const App: React.FC = () => {
           isOpen={isSidebarOpen}
           onCloseMobile={() => setIsSidebarOpen(false)}
           userName={auth.user.name}
-          onLogout={auth.logout}
+          onLogout={handleLogout}
           expandedModules={expandedModules}
           toggleModule={toggleModule}
           onOpenAdmin={() => {
-            setIsSidebarOpen(false); // Fecha sidebar mobile se estiver aberta
+            setIsSidebarOpen(false);
             setShowAdminLogin(true);
           }}
         />

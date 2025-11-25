@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useMemo } from 'react';
 import { COURSE_MODULES } from '../data/courseContent';
 
@@ -45,6 +46,44 @@ export const useCourseProgress = () => {
       return true;
     }
   });
+
+  // Time Spent State (in seconds)
+  const [timeSpent, setTimeSpent] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('fp_time_spent');
+      return saved ? parseInt(saved, 10) : 0;
+    } catch (e) {
+      return 0;
+    }
+  });
+
+  // Timer Logic: Incrementa a cada segundo enquanto o app estiver aberto
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeSpent(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Persist Time Spent (Salva a cada 10 segundos para não sobrecarregar o storage)
+  useEffect(() => {
+    const saveTimer = setInterval(() => {
+      try {
+        localStorage.setItem('fp_time_spent', timeSpent.toString());
+      } catch (e) {
+        console.error('Erro ao salvar tempo', e);
+      }
+    }, 10000);
+
+    // Salva também ao desmontar
+    return () => {
+        clearInterval(saveTimer);
+        try {
+            localStorage.setItem('fp_time_spent', timeSpent.toString());
+        } catch (e) {}
+    };
+  }, [timeSpent]);
 
   // Persist changes with safety
   useEffect(() => {
@@ -134,6 +173,7 @@ export const useCourseProgress = () => {
     isDarkMode,
     toggleTheme,
     showWelcomeModal,
-    closeWelcomeModal
+    closeWelcomeModal,
+    timeSpent
   };
 };

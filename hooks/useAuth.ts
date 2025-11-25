@@ -59,16 +59,24 @@ export const useAuth = () => {
   const register = async (name: string, email: string, pass: string) => {
     try {
       const users = getAllUsers();
+      
+      // Validação 1: E-mail único
       if (users.some(u => u.email === email)) {
         return { success: false, message: 'E-mail já cadastrado.' };
+      }
+
+      // Validação 2: Nome único (Case insensitive)
+      // Evita confusão e garante identidade única na plataforma
+      if (users.some(u => u.name.trim().toLowerCase() === name.trim().toLowerCase())) {
+        return { success: false, message: 'Este nome já está em uso por outro aluno. Por favor, use um nome diferente (ex: Adicione o sobrenome).' };
       }
 
       const passwordHash = await hashValue(pass);
 
       const newUser: User = {
         id: generateId(),
-        name,
-        email,
+        name: name.trim(), // Salva o nome limpo
+        email: email.trim(),
         password: passwordHash,
         registeredAt: new Date().toISOString()
       };
@@ -113,7 +121,16 @@ export const useAuth = () => {
     const dummyNames = ["Carlos Silva", "Ana Pereira", "Roberto Santos", "Fernanda Lima", "João Souza"];
     const currentUsers = getAllUsers();
     
-    const newUsers = await Promise.all(dummyNames.map(async (name, i) => ({
+    // Filtra nomes que já existem para não gerar duplicatas no teste também
+    const uniqueNames = dummyNames.filter(name => 
+      !currentUsers.some(u => u.name.toLowerCase() === name.toLowerCase())
+    );
+
+    if (uniqueNames.length === 0) {
+      return; // Todos os usuários de teste já existem
+    }
+
+    const newUsers = await Promise.all(uniqueNames.map(async (name, i) => ({
       id: generateId(),
       name,
       email: `${name.toLowerCase().replace(' ', '.')}@email.com`,

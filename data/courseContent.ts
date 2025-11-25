@@ -11,7 +11,7 @@ export const COURSE_MODULES: Module[] = [
         id: 'l1',
         title: '1. Introdução às Finanças Pessoais',
         duration: '10 min',
-        image: 'https://images.unsplash.com/photo-1579621970569-c70188618bd2?q=80&w=1200', // Plant growing on coins (Growth/Start)
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200', // Accounting / Planning / Start
         content: {
           intro: "Você já se perguntou por que, independentemente de quanto ganha, o dinheiro parece nunca ser suficiente? A resposta não está na matemática, mas no comportamento. Bem-vindo à sua jornada de transformação.",
           explanation: `### O que é Educação Financeira?
@@ -90,7 +90,7 @@ A primeira trava seu cérebro; a segunda força ele a buscar soluções criativa
         id: 'l3',
         title: '3. Autoconhecimento Financeiro (Selfie)',
         duration: '20 min',
-        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200', // Calculator / Audit / Numbers
+        image: 'https://images.unsplash.com/photo-1512358958014-b651a70c75cd?q=80&w=1200', // Golden Compass - Direction
         content: {
           intro: "Para chegar a algum lugar, o GPS precisa de dois pontos: onde você quer ir e onde você está agora. Hoje vamos descobrir onde você está.",
           explanation: `### A Selfie Financeira
@@ -129,7 +129,7 @@ O objetivo deste módulo não é julgar, é diagnosticar. Você não pode curar 
         id: 'l4',
         title: '4. Objetivos de Curto, Médio e Longo Prazo',
         duration: '15 min',
-        image: 'https://images.unsplash.com/photo-1501139083538-0139583c61ee?q=80&w=1200', // Hourglass / Time / Planning
+        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1200', // Checklist / Planning
         content: {
           intro: "Dinheiro sem destino vira paisagem. Se você não der um nome e um prazo para cada centavo, ele vai desaparecer com coisas triviais.",
           explanation: `### A Linha do Tempo Financeira
@@ -198,7 +198,7 @@ Agora você não tem mais um sonho vago. Você tem um boleto de R$ 1.000/mês co
         id: 'l6',
         title: '6. Selfie Financeira (Diagnóstico Inicial)',
         duration: '15 min',
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200', // Analyzing Receipt / Pen / Audit
+        image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200', // Calculator / Audit (Standard)
         content: {
           intro: "Você não começa uma dieta sem se pesar. Nas finanças, a balança é o seu fluxo de caixa e patrimônio.",
           explanation: `### A Foto do Momento
@@ -346,7 +346,7 @@ Se suas necessidades consomem 80% da sua renda, você tem um problema estrutural
         id: 'l11',
         title: '11. Organização do Orçamento Mensal',
         duration: '15 min',
-        image: 'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1200', // Checklist / Organization / Desk
+        image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200', // Meeting / Planning / Org
         content: {
           intro: "Organização vence a força de vontade. Se você depender da memória, vai falhar.",
           explanation: `### Classificação Inteligente

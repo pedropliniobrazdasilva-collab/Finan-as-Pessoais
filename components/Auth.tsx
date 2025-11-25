@@ -1,18 +1,24 @@
 
-import React, { useState } from 'react';
-import { Lock, Mail, User as UserIcon, ArrowRight, AlertCircle, ShieldCheck, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Lock, Mail, User as UserIcon, ArrowRight, AlertCircle, ShieldCheck, Loader2, ArrowLeft } from 'lucide-react';
 
 interface AuthProps {
   onLogin: (email: string, pass: string) => Promise<boolean>;
   onRegister: (name: string, email: string, pass: string) => Promise<{ success: boolean; message?: string }>;
   onAdminClick: () => void;
+  onBack: () => void;
+  initialMode?: 'login' | 'register';
 }
 
-export const Auth: React.FC<AuthProps> = ({ onLogin, onRegister, onAdminClick }) => {
-  const [isLogin, setIsLogin] = useState(true);
+export const Auth: React.FC<AuthProps> = ({ onLogin, onRegister, onAdminClick, onBack, initialMode = 'login' }) => {
+  const [isLogin, setIsLogin] = useState(initialMode === 'login');
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLogin(initialMode === 'login');
+  }, [initialMode]);
 
   const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
 
@@ -65,7 +71,15 @@ export const Auth: React.FC<AuthProps> = ({ onLogin, onRegister, onAdminClick })
         {/* Header */}
         <div className="bg-brand-600 p-8 text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-          <div className="relative z-10">
+          
+          <button 
+            onClick={onBack}
+            className="absolute top-4 left-4 p-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors z-20 flex items-center gap-1 text-xs font-bold"
+          >
+            <ArrowLeft className="w-4 h-4" /> Voltar
+          </button>
+
+          <div className="relative z-10 mt-4">
             <h1 className="text-2xl font-bold text-white mb-2">Finanças Pessoais</h1>
             <p className="text-brand-100 text-sm">Plataforma do Aluno</p>
           </div>

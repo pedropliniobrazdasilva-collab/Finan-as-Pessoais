@@ -1,3 +1,4 @@
+
 export interface Lesson {
   id: string;
   title: string;
@@ -40,4 +41,5 @@ export interface CourseContextType {
   toggleTheme: () => void;
   showWelcomeModal: boolean;
   closeWelcomeModal: () => void;
+  timeSpent: number; // Tempo em segundos investido na plataforma
 }
